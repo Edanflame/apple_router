@@ -1,0 +1,53 @@
+#!name= 菜鸟去广告
+#!desc= 去除菜鸟app开屏广告、精简菜鸟app的页面并去除页面下方广告
+#!author= Ivan
+#!category= app去广告
+#!system= ios
+
+[Rule]
+# 域名拦截
+
+[URL Rewrite]
+# 路径精准匹配 (需开启 MITM)
+
+# 菜鸟_通用广告请求@ddgksf2013
+^https?:\/\/[a-zA-Z0-9_.-]+\.cainiao\.com\/gw\/mtop\.cainiao\.guoguo\.nbnetflow\.ads\.(?!.*_home) - reject
+# 菜鸟_通用广告请求@ddgksf2013
+^https?:\/\/[a-zA-Z0-9_.-]+\.cainiao\.com\/gw\/mtop\.cainiao\.guoguo\.nbnetflow\.ads\.mshow\.cn - reject
+# ^https?:\/\/[a-zA-Z0-9_.-]+\.cainiao\.com\/gw\/mtop\.cainiao\.guoguo\.nbnetflow\.ads\.batch.\show\.v2.\cn - reject
+# 菜鸟_首页底部商品推广@ddgksf2013
+^https?:\/\/[a-zA-Z0-9_.-]+\.cainiao\.com\/gw\/mtop\.cainiao\.nbcps\.presentation\.fetch\.cn - reject
+# 菜鸟_底部角标推广@ddgksf2013
+^https?:\/\/[a-zA-Z0-9_.-]+\.cainiao\.com\/gw\/mtop\.cainiao\.app\.home\.v\d+\.bottom\.area - reject
+
+# > 菜鸟裹裹_支付宝小程序_通用广告请求@ddgksf2013
+^https?:\/\/[a-zA-Z0-9_.-]+\.taobao\.com\/gw\/mtop\.cainiao\.guoguo\.nbnetflow\.ads\. - reject
+# > 菜鸟裹裹_支付宝小程序_底部商品推广新@ddgksf2013
+^https?:\/\/[a-zA-Z0-9_.-]+\.taobao\.com\/gw\/mtop\.alimama\.abyss\.unionpage\.get - reject
+# > 菜鸟裹裹_支付宝小程序_底部商品推广旧@ddgksf2013
+^https?:\/\/[a-zA-Z0-9_.-]+\.taobao\.com\/gw\/mtop\.cainiao\.adx\.flyad\.getad - reject
+# > 菜鸟裹裹_支付宝小程序_匿名选择@ddgksf2013
+^https?:\/\/[a-zA-Z0-9_.-]+\.taobao\.com\/gw\/mtop\.cainiao\.nbmensa\.research\.researchservice\.consultmerge - reject
+
+[Script]
+# 脚本数据处理
+# 参数说明：
+# type: http-response (处理服务器返回的内容)
+# pattern: 正则匹配 URL
+# requires-body: 1 (必须开启，否则拿不到数据)
+# script-path: 脚本路径 (支持本地或远程)
+
+# 菜鸟admc处理
+ADMC_deal = type=http-response,pattern=^http:\/\/amdc\.m\.taobao\.com,requires-body=1,max-size=0,script-path=https://raw.githubusercontent.com/Edanflame/apple_router/refs/heads/main/Surge/module/amdc/admc.js
+# 菜鸟_我的页面去除推广[卸载重装]@ddgksf2013
+cainiao_mypage_deal = type=http-response,pattern=^https?:\/\/[a-zA-Z0-9_.-]+\.cainiao\.com\/gw\/mtop\.cainiao\.app\.e2e\.engine\.page\.fetch,requires-body=1,max-size=0,script-path=https://raw.githubusercontent.com/Edanflame/apple_router/refs/heads/main/Surge/js/cainiao/cainiao.js
+# 菜鸟_首页中部的问邻居推广@ddgksf2013
+cainiao_neighbour_deal = type=http-response,pattern=^https?:\/\/[a-zA-Z0-9_.-]+\.cainiao\.com\/gw\/mtop\.cainiao\.nbpresentation\.homepage\.merge\.get\.cn,requires-body=1,script-path=https://raw.githubusercontent.com/Edanflame/apple_router/refs/heads/main/Surge/js/cainiao/cainiao.js
+# 菜鸟_首页中部的惊喜福利推广@ddgksf2013
+cainiao_surprise_deal = type=http-response,pattern=^https?:\/\/[a-zA-Z0-9_.-]+\.cainiao\.com\/gw\/mtop\.cainiao\.nbpresentation\.protocol\.homepage\.get\.cn,requires-body=1,max-size=0,script-path=https://raw.githubusercontent.com/Edanflame/apple_router/refs/heads/main/Surge/js/cainiao/cainiao.js
+# 菜鸟_搜索框下方今日好物推荐@ddgksf2013
+cainiao_adkeywords_deal = type=http-response,pattern=^https?:\/\/[a-zA-Z0-9_.-]+\.cainiao\.com\/gw\/mtop\.cainiao\.adkeyword,requires-body=1,max-size=0,script-path=https://raw.githubusercontent.com/Edanflame/apple_router/refs/heads/main/Surge/js/cainiao/cainiao.js
+
+[MITM]
+# --- 核心：必须声明需要解密的域名 ---
+hostname = %APPEND% *.cainiao.com, guide-acs.m.taobao.com, acs4miniapp-inner.m.taobao.com
