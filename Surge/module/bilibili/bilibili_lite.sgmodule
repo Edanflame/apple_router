@@ -1,0 +1,34 @@
+#!name= bilibili去广告简化版
+#!desc= 去除b站app开屏广告、b站app的页面
+#!author= Ivan
+#!category= bilibili
+#!system= ios
+#参考自@ddgksf2013
+
+[Rule]
+# 域名拦截
+
+[URL Rewrite]
+# 路径精准匹配 (需开启 MITM)
+
+^https?:\/\/app\.bilibili\.com\/x\/v2\/splash\/show - reject
+
+[Script]
+# 脚本数据处理
+# 参数说明：
+# type: http-response (处理服务器返回的内容)
+# pattern: 正则匹配 URL
+# requires-body: 1 (必须开启，否则拿不到数据)
+# script-path: 脚本路径 (支持本地或远程)
+
+bilibili_list = type=http-response,pattern=^https:\/\/app\.bilibili\.com\/x\/v2\/splash\/list,requires-body=1,max-size=0,script-path=https://raw.githubusercontent.com/Edanflame/apple_router/refs/heads/main/Surge/js/bilibili/bilibili.js
+bilibili_myinfo = type=http-response,pattern=^https?:\/\/app\.bilibili\.com\/x\/v2\/account\/myinfo\?,requires-body=1,max-size=0,script-path=https://raw.githubusercontent.com/Edanflame/apple_router/refs/heads/main/Surge/js/bilibili/bilibili.js
+bilibili_index = type=http-response,pattern=^https?:\/\/app\.bilibili\.com\/x\/v2\/feed\/index,requires-body=1,script-path=https://raw.githubusercontent.com/Edanflame/apple_router/refs/heads/main/Surge/js/bilibili/bilibili.js
+bilibili_tab = type=http-response,pattern=^https?:\/\/app\.bilibili\.com\/x\/resource\/show\/tab,requires-body=1,max-size=0,script-path=https://raw.githubusercontent.com/Edanflame/apple_router/refs/heads/main/Surge/js/bilibili/bilibili.js
+bilibili_mine = type=http-response,pattern=^https?:\/\/app\.bilibili\.com\/x\/v2\/account\/mine,requires-body=1,max-size=0,script-path=https://raw.githubusercontent.com/Edanflame/apple_router/refs/heads/main/Surge/js/bilibili/bilibili.js
+bilibili_activity = type=http-response,pattern=^https?:\/\/app\.bilibili\.com\/x\/resource\/top\/activity,requires-body=1,max-size=0,script-path=https://raw.githubusercontent.com/Edanflame/apple_router/refs/heads/main/Surge/js/bilibili/bilibili.js
+bilibili_square = type=http-response,pattern=^https?:\/\/app\.bilibili\.com\/x\/v2\/search\/square,requires-body=1,max-size=0,script-path=https://raw.githubusercontent.com/Edanflame/apple_router/refs/heads/main/Surge/js/bilibili/bilibili.js
+
+[MITM]
+# --- 核心：必须声明需要解密的域名 ---
+hostname = %APPEND% app.bilibili.com

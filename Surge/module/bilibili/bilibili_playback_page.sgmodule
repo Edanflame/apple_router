@@ -1,0 +1,38 @@
+#!name= bilibili播放页
+#!desc= 去除b站app播放页广告
+#!author= Ivan
+#!category= bilibili
+#!system= ios
+#参考自@ddgksf2013
+
+[Rule]
+# 域名拦截
+
+[URL Rewrite]
+# 路径精准匹配 (需开启 MITM)
+
+# > BiliBili_哔哩哔哩_Version
+^https?:\/\/bilibili.2025.04.02/c136 - reject
+
+[Script]
+# 脚本数据处理
+# 参数说明：
+# type: http-response (处理服务器返回的内容)
+# pattern: 正则匹配 URL
+# requires-body: 1 (必须开启，否则拿不到数据)
+# script-path: 脚本路径 (支持本地或远程)
+
+# > BiliBili_哔哩哔哩_屏蔽广告浮窗@ddgksf2013
+bilibili_float_ads = type=http-response,pattern=^https?:\/\/api\.bilibili\.com\/pgc\/activity\/deliver\/material\/receive,requires-body=1,max-size=0,script-path=https://raw.githubusercontent.com/Edanflame/apple_router/refs/heads/main/Surge/js/reject_dict/reject_dict.js
+# > BiliBili_哔哩哔哩_Material_Ad@ddgksf2013
+bilibili_material_ads = type=http-response,pattern=^https?:\/\/api\.bilibili\.com\/x\/vip\/ads\/material\/report,requires-body=1,max-size=0,script-path=https://raw.githubusercontent.com/Edanflame/apple_router/refs/heads/main/Surge/js/reject_dict/reject_dict.js
+# > BiliBili_哔哩哔哩_小卡片广告@ddgksf2013
+bilibili_card_ads = type=http-response,pattern=^https://api.bilibili.com/pgc/season/player/cards,requires-body=1,max-size=0,script-path=https://raw.githubusercontent.com/Edanflame/apple_router/refs/heads/main/Surge/js/reject_dict/reject_dict.js
+# > BiliBili_哔哩哔哩_点击追番Card@ddgksf2013
+bilibili_follow_ams = type=http-response,pattern=^https?:\/\/api\.bilibili\.com\/pgc\/season\/player\/ogv\/cards,requires-body=1,max-size=0,script-path=https://raw.githubusercontent.com/Edanflame/apple_router/refs/heads/main/Surge/js/reject_dict/reject_dict.js
+# > BiliBili_哔哩哔哩_视频播放下方商品推广@ddgksf2013
+bilibili_video_shop = type=http-response,pattern=^https?:\/\/api\.bili(api|bili)\.(net|com)\/pgc\/season\/app\/related\/recommend\?,requires-body=1,max-size=0,script-path=https://raw.githubusercontent.com/Edanflame/apple_router/refs/heads/main/Surge/js/bilibili/bilibili.js
+
+[MITM]
+# --- 核心：必须声明需要解密的域名 ---
+hostname = %APPEND% -broadcast.chat.bilibili.com, -cm.bilibili.com, -*cdn*.biliapi.net, -*tracker*.biliapi.net, app.bilibili.com, api.live.bilibili.com, *.bilibili.com, *.bili*.*, *.bilibili.*, grpc.biliapi.net, *biliapi.net

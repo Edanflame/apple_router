@@ -1,0 +1,29 @@
+#!name= bilibili开屏
+#!desc= 去除b站app开屏广告
+#!author= Ivan
+#!category= bilibili
+#!system= ios
+#参考自@ddgksf2013
+
+[Rule]
+# 域名拦截
+
+[URL Rewrite]
+# 路径精准匹配 (需开启 MITM)
+
+[Script]
+# 脚本数据处理
+# 参数说明：
+# type: http-response (处理服务器返回的内容)
+# pattern: 正则匹配 URL
+# requires-body: 1 (必须开启，否则拿不到数据)
+# script-path: 脚本路径 (支持本地或远程)
+
+# > BiliBili_哔哩哔哩_应用开屏去广告@bm7
+bilibili_startup = type=http-response,pattern=^https://app.bilibili.com/x/v2/splash/show,requires-body=1,max-size=0,script-path=https://raw.githubusercontent.com/Edanflame/apple_router/refs/heads/main/Surge/js/reject_dict/reject_dict.js
+# > BiliBili_哔哩哔哩_应用开屏广告预加载@yjqiang
+bilibili_startup_splash = type=http-response,pattern=^https:\/\/app\.bilibili\.com\/x\/v2\/splash\/list,requires-body=1,max-size=0,script-path=https://raw.githubusercontent.com/Edanflame/apple_router/refs/heads/main/Surge/js/bilibili/bilibili.js
+
+[MITM]
+# --- 核心：必须声明需要解密的域名 ---
+hostname = %APPEND% -broadcast.chat.bilibili.com, -cm.bilibili.com, -*cdn*.biliapi.net, -*tracker*.biliapi.net, app.bilibili.com, api.live.bilibili.com, *.bilibili.com, *.bili*.*, *.bilibili.*, grpc.biliapi.net,*biliapi.net

@@ -1,0 +1,38 @@
+#!name= bilibili proto
+#!desc= bilibili Proto 处理
+#!author= Ivan
+#!category= bilibili
+#!system= ios
+#参考自@ddgksf2013
+
+[Rule]
+# 域名拦截
+
+[URL Rewrite]
+# 路径精准匹配 (需开启 MITM)
+
+[Script]
+# 脚本数据处理
+# 参数说明：
+# type: http-response (处理服务器返回的内容)
+# pattern: 正则匹配 URL
+# requires-body: 1 (必须开启，否则拿不到数据)
+# script-path: 脚本路径 (支持本地或远程)
+
+# ～ BiliBili_哔哩哔哩_屏蔽DefaultWord@ddgksf2013
+bilibili_proto_default = type=http-response,pattern=^https?:\/\/(app\.bilibili\.com|grpc\.biliapi\.net)\/bilibili\.app\.interface\.v1\.Search\/Default,requires-body=1,max-size=0,script-path=https://raw.githubusercontent.com/Edanflame/apple_router/refs/heads/main/Surge/js/reject_dict/reject_dict.js
+# ～ BiliBili_哔哩哔哩_搜索去广告@BiliUniverse
+bilibili_proto_ads = type=http-response,pattern=^https?:\/\/(grpc\.biliapi\.net|app\.bilibili\.com)\/bilibili\.polymer\.app\.search\.v1\.Search\/SearchAll$,requires-body=1,max-size=0,script-path=https://github.com/BiliUniverse/ADBlock/releases/download/v0.6.21/response.bundle.js
+# ～ BiliBili_哔哩哔哩_交互点赞投票弹幕及会员弹幕@BiliUniverse
+bilibili_proto_vote = type=http-response,pattern=^https?:\/\/(app\.bilibili\.com|grpc\.biliapi\.net)\/bilibili\.community\.service\.dm\.v1\.DM\/(DmView|DmSegMobile),requires-body=1,max-size=0,script-path=https://github.com/BiliUniverse/ADBlock/releases/download/v0.6.21/response.bundle.js
+# ～ BiliBili_哔哩哔哩_青少年弹窗@BiliUniverse
+bilibili_proto_teen = type=http-response,pattern=^https:\/\/(grpc\.biliapi\.net|app\.bilibili\.com)\/bilibili\.app\.interface\.v1\.Teenagers\/ModeStatus,requires-body=1,max-size=0,script-path=https://github.com/BiliUniverse/ADBlock/releases/download/v0.6.21/response.bundle.js
+# ～ BiliBili_哔哩哔哩_UP主推荐广告[适配ipad端]@BiliUniverse
+bilibili_proto_upads = type=http-response,pattern=^https?:\/\/(app\.bilibili\.com|grpc\.biliapi\.net)\/bilibili\.app\.(view|viewunite)\.v1\.View\/(View|TFInfo)$,requires-body=1,max-size=0,script-path=https://github.com/BiliUniverse/ADBlock/releases/download/v0.6.21/response.bundle.js
+# ～ BiliBili_哔哩哔哩_动态综合页及视频页去广告@BiliUniverse
+bilibili_proto_video_ads = type=http-response,pattern=^https?:\/\/(app\.bilibili\.com|grpc\.biliapi\.net)\/bilibili\.app\.dynamic\.v2\.Dynamic\/Dyn(All|Video)$,requires-body=1,max-size=0,script-path=https://github.com/BiliUniverse/ADBlock/releases/download/v0.6.21/response.bundle.js
+
+
+[MITM]
+# --- 核心：必须声明需要解密的域名 ---
+hostname = %APPEND% -broadcast.chat.bilibili.com, -cm.bilibili.com, -*cdn*.biliapi.net, -*tracker*.biliapi.net, app.bilibili.com, api.live.bilibili.com, *.bilibili.com, *.bili*.*, *.bilibili.*, grpc.biliapi.net,*biliapi.net
