@@ -1,0 +1,78 @@
+#!name= 小红书净化
+#!desc= 小红书净化+功能增强
+#!author= Ivan
+#!category= 小红书
+#!system= ios
+#参考自@ddgksf2013
+#https://raw.githubusercontent.com/ddgksf2013/Rewrite/refs/heads/master/AdBlock/XiaoHongShuAds.conf
+
+[Rule]
+# 域名拦截
+
+[URL Rewrite]
+# 路径精准匹配 (需开启 MITM)
+
+^https?:\/\/app\.bilibili\.com\/x\/v2\/splash\/show - reject
+# > 小红书_搜索广告推荐@ddgksf2013
+^https?:\/\/[a-z]+\.xiaohongshu\.com\/api\/sns\/v\d+\/search\/notes\/recommend_info\? - reject
+# > 小红书_通用广告请求@ddgksf2013
+^https?:\/\/[a-z]+\.xiaohongshu\.com\/api\/sns\/v\d+\/system_service\/splash - reject
+# > 小红书_通用广告请求@ddgksf2013
+^https?:\/\/[a-z]+\.xiaohongshu\.com\/api\/gslb - reject
+# > 小红书_通用广告请求@ddgksf2013
+^https?:\/\/[a-z]+\.xiaohongshu\.com\/api\/sns\/v\d+\/(tag\/)?ads - reject
+# > 小红书_隐私屏蔽@ddgksf2013
+^https?:\/\/[a-z]+\.xiaohongshu\.com\/v\d+\/stateReport - reject
+# > 小红书_Switches@ddgksf2013
+^https?:\/\/[a-z]+\.xiaohongshu\.com\/data\/native\/matrix_switches - reject
+# > 小红书_青少年请求@ddgksf2013
+^https?:\/\/[a-z]+\.xiaohongshu\.com\/api\/sns\/v\d+\/user\/teenager\/status - reject
+# > 小红书_启动引导@ddgksf2013
+^https?:\/\/[a-z]+\.xiaohongshu\.com\/api\/sns\/v\d+\/guide\/home_guide - reject
+
+[Script]
+# 脚本数据处理
+# 参数说明：
+# type: http-response (处理服务器返回的内容)
+# pattern: 正则匹配 URL
+# requires-body: 1 (必须开启，否则拿不到数据)
+# script-path: 脚本路径 (支持本地或远程)
+
+# > 小红书_热门视频流@ddgksf2013
+redbook_tabfeed = type=http-response,pattern=^https?:\/\/[a-z]+\.xiaohongshu\.com\/api\/sns\/v\d+\/note\/tabfeed,requires-body=1,max-size=0,script-path=https://raw.githubusercontent.com/Edanflame/apple_router/refs/heads/main/Surge/js/redbook/redbook.js
+# > 小红书_视频保存[new]@ddgksf2013
+redbook_vedio_save = type=http-response,pattern=^https?:\/\/[a-z]+\.xiaohongshu\.com\/api\/sns\/v\d+\/note\/video\/save,requires-body=1,max-size=0,script-path=https://raw.githubusercontent.com/Edanflame/apple_router/refs/heads/main/Surge/js/redbook/redbook.js
+# > 小红书_评论区图片处理@ddgksf2013(原文档注释，可能失效)
+redbook_comment_img = type=http-response,pattern=^https?:\/\/[a-z]+\.xiaohongshu\.com\/api\/sns\/v\d+\/note\/comment\/list,requires-body=1,max-size=0,script-path=https://raw.githubusercontent.com/Edanflame/apple_router/refs/heads/main/Surge/js/redbook/redbook.js
+# > 小红书_Live图片去水印@ddgksf2013
+redbook_live_pic = type=http-response,pattern=^https?:\/\/[a-z]+\.xiaohongshu\.com\/api\/sns\/v\d+\/note\/live_photo\/save,requires-body=1,max-size=0,script-path=https://raw.githubusercontent.com/Edanflame/apple_router/refs/heads/main/Surge/js/redbook/redbook.js
+# > 小红书_搜索结果推荐广告@ddgksf2013
+redbook_search_note = type=http-response,pattern=^https?:\/\/[a-z]+\.xiaohongshu\.com\/api\/sns\/v\d+\/search\/notes\?,requires-body=1,max-size=0,script-path=https://raw.githubusercontent.com/Edanflame/apple_router/refs/heads/main/Surge/js/redbook/redbook.js
+# > 小红书_视频播放页商品推广@ddgksf2013
+redbook_note_widget = type=http-response,pattern=^https?:\/\/[a-z]+\.xiaohongshu\.com\/api\/sns\/v\d+\/note\/widgets,requires-body=1,max-size=0,script-path=https://raw.githubusercontent.com/Edanflame/apple_router/refs/heads/main/Surge/js/redbook/redbook.js
+# > 小红书_短视频流去水印+强制开启保存功能@ddgksf2013
+redbook_redtube = type=http-response,pattern=^https?:\/\/[a-z]+\.xiaohongshu\.com\/api\/sns\/v\d+\/note\/redtube\?,requires-body=1,max-size=0,script-path=https://raw.githubusercontent.com/Edanflame/apple_router/refs/heads/main/Surge/js/redbook/redbook.js
+# > 小红书_信息流视频去水印+强制开启保存功能@ddgksf2013
+redbook_videofeed = type=http-response,pattern=^https?:\/\/[a-z]+\.xiaohongshu\.com\/api\/sns\/v\d+\/note\/videofeed\?,requires-body=1,max-size=0,script-path=https://raw.githubusercontent.com/Edanflame/apple_router/refs/heads/main/Surge/js/redbook/redbook.js
+# > 小红书_信息流图片去水印@ddgksf2013
+redbook_note_pic = type=http-response,pattern=^https?:\/\/[a-z]+\.xiaohongshu\.com\/api\/sns\/v\d+\/note\/feed\?,requires-body=1,max-size=0,script-path=https://raw.githubusercontent.com/Edanflame/apple_router/refs/heads/main/Surge/js/redbook/redbook.js
+# > 小红书_信息流图片[部分用户是下面请求]去水印@ddgksf2013
+redbook_note_comment_pic = type=http-response,pattern=^https?:\/\/[a-z]+\.xiaohongshu\.com\/api\/sns\/v\d+\/note\/imagefeed,requires-body=1,max-size=0,script-path=https://raw.githubusercontent.com/Edanflame/apple_router/refs/heads/main/Surge/js/redbook/redbook.js
+# > 小红书_开屏广告@ddgksf2013
+redbook_splash = type=http-response,pattern=^https?:\/\/[a-z]+\.xiaohongshu\.com\/api\/sns\/v\d+\/system_service\/splash_config,requires-body=1,max-size=0,script-path=https://raw.githubusercontent.com/Edanflame/apple_router/refs/heads/main/Surge/js/redbook/redbook.js
+# > 小红书_首页瀑布流@ddgksf2013
+redbook_home = type=http-response,pattern=^https?:\/\/[a-z]+\.xiaohongshu\.com\/api\/sns\/v\d+\/homefeed\?,requires-body=1,max-size=0,script-path=https://raw.githubusercontent.com/Edanflame/apple_router/refs/heads/main/Surge/js/redbook/redbook.js
+# > 小红书_启动处理@ddgksf2013
+redbook_startup = type=http-response,pattern=^https?:\/\/[a-z]+\.xiaohongshu\.com\/api\/sns\/v\d+\/system_service\/config\?,requires-body=1,max-size=0,script-path=https://raw.githubusercontent.com/Edanflame/apple_router/refs/heads/main/Surge/js/redbook/redbook.js
+# > 小红书_热搜发现@ddgksf2013
+redbook_hotlist = type=http-response,pattern=^https?:\/\/[a-z]+\.xiaohongshu\.com\/api\/sns\/v\d+\/search\/hot_list,requires-body=1,max-size=0,script-path=https://raw.githubusercontent.com/Edanflame/apple_router/refs/heads/main/Surge/js/redbook/redbook.js
+# > 小红书_默认填词@ddgksf2013
+redbook_defaultwords = type=http-response,pattern=^https?:\/\/[a-z]+\.xiaohongshu\.com\/api\/sns\/v\d+\/search\/hint,requires-body=1,max-size=0,script-path=https://raw.githubusercontent.com/Edanflame/apple_router/refs/heads/main/Surge/js/redbook/redbook.js
+# > 小红书_去除购物@ddgksf2013
+redbook_shop = type=http-response,pattern=^https?:\/\/[a-z]+\.xiaohongshu\.com\/api\/sns\/v\d+\/homefeed\/categories,requires-body=1,max-size=0,script-path=https://raw.githubusercontent.com/Edanflame/apple_router/refs/heads/main/Surge/js/redbook/redbook.js
+# > 小红书_猜你想搜@ddgksf2013
+redbook_trend = type=http-response,pattern=^https?:\/\/[a-z]+\.xiaohongshu\.com\/api\/sns\/v\d+\/search\/trending,requires-body=1,max-size=0,script-path=https://raw.githubusercontent.com/Edanflame/apple_router/refs/heads/main/Surge/js/redbook/redbook.js
+
+[MITM]
+# --- 核心：必须声明需要解密的域名 ---
+hostname = %APPEND% *.xiaohongshu.com
