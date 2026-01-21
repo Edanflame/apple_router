@@ -12,7 +12,6 @@
 [URL Rewrite]
 # 路径精准匹配 (需开启 MITM)
 
-^https?:\/\/app\.bilibili\.com\/x\/v2\/splash\/show - reject
 # > 小红书_搜索广告推荐@ddgksf2013
 ^https?:\/\/[a-z]+\.xiaohongshu\.com\/api\/sns\/v\d+\/search\/notes\/recommend_info\? - reject
 # > 小红书_通用广告请求@ddgksf2013
