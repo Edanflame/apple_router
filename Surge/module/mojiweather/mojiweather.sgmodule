@@ -1,0 +1,45 @@
+#!name= 墨迹天气去广告
+#!desc= 去除墨迹天气app开屏广告和应用内广告
+#!author= Ivan
+#!category= 墨迹天气
+#!system= ios
+#version= V1.0.2
+#参考自@ddgksf2013
+#https://raw.githubusercontent.com/ddgksf2013/Rewrite/refs/heads/master/AdBlock/MoJiWeatherAds.conf
+
+[Rule]
+# 域名拦截
+# # > 开屏广告@ddgksf2013
+DOMAIN-SUFFIX,adlaunch.moji.com,REJECT
+
+[URL Rewrite]
+# 路径精准匹配 (需开启 MITM)
+
+^https?:\/\/app\.bilibili\.com\/x\/v2\/splash\/show - reject
+# > 首页顶部浮窗推广@ddgksf2013
+^https?:\/\/.*api\.moji\.com\/flycard\/flyCard - reject
+# > 首页底部短视频流@ddgksf2013
+^https?:\/\/.*api\.moji\.com\/shortvideo - reject
+# > 商品推广@ddgksf2013
+^https?:\/\/.*api\.moji\.com\/json\/advertising_goods - reject
+# > 屏蔽时景发现页@ddgksf2013
+^https?:\/\/.*api\.moji\.com\/forum - reject
+# > 屏蔽时景关注@ddgksf2013
+^https?:\/\/.*api\.moji\.com\/user\/dynamic_v\d\/json\/someone_interest - reject
+# > DNS处理@ddgksf2013
+^https:\/\/tnc.*zijieapi\.com\/get_domains - reject
+
+[Script]
+# 脚本数据处理
+# 参数说明：
+# type: http-response (处理服务器返回的内容)
+# pattern: 正则匹配 URL
+# requires-body: 1 (必须开启，否则拿不到数据)
+# script-path: 脚本路径 (支持本地或远程)
+
+# > 我的页面@ddgksf2013
+moji = type=http-response,pattern=^https?:\/\/.*api\.moji\.com\/json\/entrance\/list,requires-body=1,max-size=0,script-path=https://raw.githubusercontent.com/Edanflame/apple_router/refs/heads/main/Surge/js/mojiweather/mojiweather.js
+
+[MITM]
+# --- 核心：必须声明需要解密的域名 ---
+hostname = %APPEND% *.api.moji.com, tnc*-*.zijieapi.com
