@@ -1,0 +1,115 @@
+#!name= 微博优化
+#!desc= 去除微博app开屏广告、优化微博页面
+#!author= Ivan
+#!category= 微博
+#!system= ios
+#version= V2.0.114
+#参考自@ddgksf2013
+#https://raw.githubusercontent.com/ddgksf2013/Rewrite/refs/heads/master/AdBlock/WeiboAds.conf
+
+[Rule]
+# 域名拦截
+# 微博国内版
+DOMAIN,sdkapp.uve.weibo.com,DIRECT
+DOMAIN,adstrategy.biz.weibo.com,REJECT
+# 微博国际版
+# > 微博国际版_开屏拦截@ddgksf2013
+DOMAIN-SUFFIX,api.touch-moblie.com,REJECT
+
+[URL Rewrite]
+# 路径精准匹配 (需开启 MITM)
+
+# > 微博_首页信息流可能感兴趣推广@ddgksf2013
+^https?:\/\/api\.weibo\.cn\/\d\/statuses\/container_positive - reject
+# > 微博_首页顶部弹窗@ddgksf2013
+^https?:\/\/api\.weibo\.cn\/\d\/push\/info - reject
+# > 微博_首页顶部直播推荐Tab@ddgksf2013
+^https?:\/\/api\.weibo\.cn\/.*\/media_homelist - reject
+# > 微博_搜索页默认填充词@ddgksf2013
+^https?:\/\/api\.weibo\.cn\/.*finder\/searchbarchange - reject
+# > 微博_每日一次的开屏广告请求@ddgksf2013
+^https?:\/\/boot.*weibo\.com\/v\d\/ad\/realtime - reject
+# > 微博_屏蔽sdkconfig请求@ddgksf2013
+^https?:\/\/sdkapp\.uve\.weibo\.com\/interface\/sdk\/sdkconfig\.php - reject
+
+
+
+[Script]
+# 脚本数据处理
+# 参数说明：
+# type: http-response (处理服务器返回的内容)
+# pattern: 正则匹配 URL
+# requires-body: 1 (必须开启，否则拿不到数据)
+# script-path: 脚本路径 (支持本地或远程)
+
+# 微博国内版
+# > 微博_详情页及评论区@ddgksf2013
+weibo_contauner_detail = type=http-response,pattern=^https?:\/\/api\.weibo\.cn\/\d\/statuses\/container_detail,requires-body=1,max-size=0,script-path=https://raw.githubusercontent.com/Edanflame/apple_router/refs/heads/main/Surge/js/weibo/weibo.js
+# > 微博_删除侧栏视频流@ddgksf2013
+weibo_stream = type=http-response,pattern=^https?:\/\/api\.weibo\.cn\/\d\/ug\/checkin\/stream,requires-body=1,max-size=0,script-path=https://raw.githubusercontent.com/Edanflame/apple_router/refs/heads/main/Surge/js/weibo/filter_card.js
+# > 微博_启动感兴趣弹窗@ddgksf2013
+weibo_interesttags = type=http-response,pattern=^https?:\/\/api\.weibo\.cn\/.*account\/recommend_interesttags,requires-body=1,max-size=0,script-path=https://raw.githubusercontent.com/Edanflame/apple_router/refs/heads/main/Surge/js/reject_dict/reject_dict.js
+# > 微博_AD_Preload@ddgksf2013
+weibo_preload = type=http-response,pattern=^https?:\/\/api\.weibo\.cn\/\d\/ad\/preload,requires-body=1,max-size=0,script-path=https://raw.githubusercontent.com/Edanflame/apple_router/refs/heads/main/Surge/js/reject_dict/reject_dict.js
+# > 微博_首页顶部homeExtend@ddgksf2013
+weibo_allgroups = type=http-response,pattern=^https?:\/\/api\.weibo\.cn\/\d\/groups\/allgroups\/v\d,requires-body=1,max-size=0,script-path=https://raw.githubusercontent.com/Edanflame/apple_router/refs/heads/main/Surge/js/weibo/weibo.js
+# > 微博_用户推荐弹窗@ddgksf2013
+weibo_recommend_popuser = type=http-response,pattern=^https?:\/\/api\.weibo\.cn\/\d\/profile\/recommend_popuser,requires-body=1,max-size=0,script-path=https://raw.githubusercontent.com/Edanflame/apple_router/refs/heads/main/Surge/js/reject_dict/reject_dict.js
+# > 微博_开屏广告预加载处理@ddgksf2013
+weibo_ad_preload = type=http-response,pattern=^https?:\/\/boot.*weibo\.com\/v\d\/ad\/preload,requires-body=1,max-size=0,script-path=https://raw.githubusercontent.com/Edanflame/apple_router/refs/heads/main/Surge/js/weibo/weibo.js
+# > 微博_未登陆状态下首页信息流处理@ddgksf2013
+weibo_nologin_stream= type=http-response,pattern=^https?:\/\/api\.weibo\.cn\/\d\/\w{5}\/(statuses_unread_hot_timeline|timeline),requires-body=1,max-size=0,script-path=https://raw.githubusercontent.com/Edanflame/apple_router/refs/heads/main/Surge/js/weibo/weibo.js
+# > 微博_视频信息处理@ddgksf2013
+weibo_vedio = type=http-response,pattern=^https?:\/\/api\.weibo\.cn\/\d\/video\/tiny_stream_mid_detail,requires-body=1,max-size=0,script-path=https://raw.githubusercontent.com/Edanflame/apple_router/refs/heads/main/Surge/js/weibo/weibo.js
+# > 微博_去除底部超话栏表层浮icon及tips@ddgksf2013
+weibo_home_bottom = type=http-response,pattern=^https?:\/\/api\.weibo\.cn\/.*discovery_home_bottom_getdotinfo,requires-body=1,max-size=0,script-path=https://raw.githubusercontent.com/Edanflame/apple_router/refs/heads/main/Surge/js/reject_dict/reject_dict.js
+# > 微博_屏蔽首页左上角每日的弹窗tips@ddgksf2013
+weibo_push_daily = type=http-response,pattern=^https?:\/\/m?api\.weibo\.c(n|om)\/\d/push/daily,requires-body=1,max-size=0,script-path=https://raw.githubusercontent.com/Edanflame/apple_router/refs/heads/main/Surge/js/reject_dict/reject_dict.js
+# > 微博_屏蔽发现页面搜索框热词@ddgksf2013
+weibo_cardlist = type=http-response,pattern=^https?:\/\/m?api\.weibo\.c(n|om)\/\d\/\w{5}\/cardlist,requires-body=1,max-size=0,script-path=https://raw.githubusercontent.com/Edanflame/apple_router/refs/heads/main/Surge/js/reject_dict/reject_dict.js
+# > 微博_应用内弹窗广告@ddgksf2013
+weibo_interface = type=http-response,pattern=^https?:\/\/(preload-click|preload-impression)\.uve\.weibo\.com\/(interface\/wbpullad\/wbpullad_click\.php|wbapplua\/get_wbpullad_log\.lua),requires-body=1,max-size=0,script-path=https://raw.githubusercontent.com/Edanflame/apple_router/refs/heads/main/Surge/js/reject_dict/reject_dict.js
+# > 微博_Spotlight@ddgksf2013
+weibo_spotlight = type=http-response,pattern=^https?:\/\/m?api\.weibo\.c(n|om)\/\d\/hot\/hours_spotlight,requires-body=1,max-size=0,script-path=https://raw.githubusercontent.com/Edanflame/apple_router/refs/heads/main/Surge/js/reject_dict/reject_dict.js
+# > 微博_自定义tab皮肤@zmqcherish
+weibo_light_skin = type=http-response,pattern=^https://api.weibo.cn/2/!/client/light_skin,requires-body=1,max-size=0,script-path=https://raw.githubusercontent.com/Edanflame/apple_router/refs/heads/main/Surge/js/weibo/weibo.js
+# > 微博_非会员设置tab皮肤@zmqcherish
+weibo_littleskin = type=http-response,pattern=^https://new.vip.weibo.cn/littleskin/preview,requires-body=1,max-size=0,script-path=https://raw.githubusercontent.com/Edanflame/apple_router/refs/heads/main/Surge/js/weibo/weibo.js
+# > 微博_去广告以及去除各部分推广模块@zmqcherish,@ddgksf2013
+weibo_push1 = type=http-response,pattern=^https?:\/\/m?api\.weibo\.c(n|om)\/\d\/(searchall|page\?|0flowpage),requires-body=1,max-size=0,script-path=https://raw.githubusercontent.com/Edanflame/apple_router/refs/heads/main/Surge/js/weibo/weibo.js
+weibo_push2 = type=http-response,pattern=^https?:\/\/m?api\.weibo\.c(n|om)\/\d\/statuses/(unread_)?friends(/|_)timeline,requires-body=1,max-size=0,script-path=https://raw.githubusercontent.com/Edanflame/apple_router/refs/heads/main/Surge/js/weibo/weibo.js
+weibo_push3 = type=http-response,pattern=^https?:\/\/m?api\.weibo\.c(n|om)\/\d\/groups/timeline,requires-body=1,max-size=0,script-path=https://raw.githubusercontent.com/Edanflame/apple_router/refs/heads/main/Surge/js/weibo/weibo.js
+weibo_push4 = type=http-response,pattern=^https?:\/\/m?api\.weibo\.c(n|om)\/\d\/statuses/(container_timeline|unread_hot_timeline|extend|video_mixtimeline|unread_topic_timeline),requires-body=1,max-size=0,script-path=https://raw.githubusercontent.com/Edanflame/apple_router/refs/heads/main/Surge/js/weibo/weibo.js
+weibo_push5 = type=http-response,pattern=^https?:\/\/m?api\.weibo\.c(n|om)\/\d\/profile/(me|container_timeline),requires-body=1,max-size=0,script-path=https://raw.githubusercontent.com/Edanflame/apple_router/refs/heads/main/Surge/js/weibo/weibo.js
+weibo_push6 = type=http-response,pattern=^https?:\/\/m?api\.weibo\.c(n|om)\/\d\/video/(community_tab|remind_info|tiny_stream_video_list),requires-body=1,max-size=0,script-path=https://raw.githubusercontent.com/Edanflame/apple_router/refs/heads/main/Surge/js/weibo/weibo.js
+weibo_push7 = type=http-response,pattern=^https?:\/\/m?api\.weibo\.c(n|om)\/\d\/search/(finder|container_timeline|container_discover),requires-body=1,max-size=0,script-path=https://raw.githubusercontent.com/Edanflame/apple_router/refs/heads/main/Surge/js/weibo/weibo.js
+weibo_push8 = type=http-response,pattern=^https?:\/\/m?api\.weibo\.c(n|om)\/\d\/(checkin/show|\!/live/media_homelist|container/get_item),requires-body=1,max-size=0,script-path=https://raw.githubusercontent.com/Edanflame/apple_router/refs/heads/main/Surge/js/weibo/weibo.js
+weibo_push9 = type=http-response,pattern=^https?:\/\/m?api\.weibo\.c(n|om)\/\d\/cardlist,requires-body=1,max-size=0,script-path=https://raw.githubusercontent.com/Edanflame/apple_router/refs/heads/main/Surge/js/weibo/weibo.js
+
+# 微博国际版
+# > 微博国际版_帖子下方广告banner@ddgksf2013
+weibo_intel_portal = type=http-response,pattern=^https?:\/\/weibointl\.api\.weibo\.cn\/portal\.php\?a=open_app,requires-body=1,max-size=0,script-path=https://raw.githubusercontent.com/Edanflame/apple_router/refs/heads/main/Surge/js/weibo/weibo.js
+# > 微博国际版_趋势页热门影片@ddgksf2013
+weibo_intel_cardlist = type=http-response,pattern=^https?:\/\/api\.weibo\.cn\/\d\/cardlist\?v_f=.*Weibo_intl,requires-body=1,max-size=0,script-path=https://raw.githubusercontent.com/Edanflame/apple_router/refs/heads/main/Surge/js/reject_dict/reject_dict.js
+# > 微博国际版_屏蔽hotsearch@ddgksf2013
+weibo_intel_hotsearch = type=http-response,pattern=^https?:\/\/weibointl\.api\.weibo\.c(n|om)\/portal\.php\?a=hot_search_users,requires-body=1,max-size=0,script-path=https://raw.githubusercontent.com/Edanflame/apple_router/refs/heads/main/Surge/js/reject_dict/reject_dict.js
+# > 微博国际版_屏蔽热推荐@ddgksf2013
+weibo_hot_recommend = type=http-response,pattern=^https?:\/\/m?api\.weibo\.c(n|om)\/\d\/ad\/weibointl\?,requires-body=1,max-size=0,script-path=https://raw.githubusercontent.com/Edanflame/apple_router/refs/heads/main/Surge/js/reject_dict/reject_dict.js
+# > 微博国际版_屏蔽searching_info@shiro
+weibo_intel_search_info = type=http-response,pattern=^https?:\/\/weibointl\.api\.weibo\.c(n|om)\/portal\.php.*a=get_searching_info,requires-body=1,max-size=0,script-path=https://raw.githubusercontent.com/Edanflame/apple_router/refs/heads/main/Surge/js/weibo/weibo_search_info.js
+# > 微博国际版_屏蔽search_topic@shiro
+weibo_intel_search_topic = type=http-response,pattern=^https?:\/\/weibointl\.api\.weibo\.c(n|om)\/portal\.php.*feed&a=search_topic,requires-body=1,max-size=0,script-path=https://raw.githubusercontent.com/Edanflame/apple_router/refs/heads/main/Surge/js/weibo/weibo_search_topic.js
+# > 微博国际版_屏蔽开屏广告@ddgksf2013 
+weibo_intel_open_ads = type=http-response,pattern=^https?:\/\/weibointl\.api\.weibo\.c(n|om)\/portal\.php.*get_coopen_ads,requires-body=1,max-size=0,script-path=https://raw.githubusercontent.com/Edanflame/apple_router/refs/heads/main/Surge/js/weibo/weibo.js
+# > 微博国际版_屏蔽sdkad@ddgksf2013
+weibo_intel_sdkad = type=http-response,pattern=^https?://(sdk|wb)app\.uve\.weibo\.com(/interface/sdk/sdkad.php|/wbapplua/wbpullad.lua),requires-body=1,max-size=0,script-path=https://raw.githubusercontent.com/Edanflame/apple_router/refs/heads/main/Surge/js/weibo/weibo.js
+# > 微博国际版_趋势顶部Card去广告@ddgksf2013
+weibo_intel_trend = type=http-response,pattern=^https?:\/\/weibointl\.api\.weibo\.c(n|om)\/portal\.php.*a=trends,requires-body=1,max-size=0,script-path=https://raw.githubusercontent.com/Edanflame/apple_router/refs/heads/main/Surge/js/weibo/weibo.js
+# > 微博国际版_屏蔽用户VIP栏@ddgksf2013
+weibo_intel_user_center = type=http-response,pattern=^https?:\/\/weibointl\.api\.weibo\.cn\/portal\.php\?a=user_center,requires-body=1,max-size=0,script-path=https://raw.githubusercontent.com/Edanflame/apple_router/refs/heads/main/Surge/js/weibo/weibo.js
+# > 微博国际版_热搜处理@ddgksf2013
+weibo_intel_hot_deal = type=http-response,pattern=^https?:\/\/weibointl\.api\.weibo\.cn\/portal\.php\?a=search_topic,requires-body=1,max-size=0,script-path=https://raw.githubusercontent.com/Edanflame/apple_router/refs/heads/main/Surge/js/weibo/weibo.js
+
+[MITM]
+# --- 核心：必须声明需要解密的域名 ---
+hostname = %APPEND% api.weibo.*, *.api.weibo.*, mapi.weibo.*, *.uve.weibo.com, new.vip.weibo.cn, boot.biz.weibo.com
