@@ -1,7 +1,7 @@
 #!name= 菜鸟去广告
 #!desc= 去除菜鸟app开屏广告、精简菜鸟app的页面并去除页面下方广告
 #!author= Ivan
-#!category= app去广告
+#!category= 菜鸟
 #!system= ios
 
 [Rule]
