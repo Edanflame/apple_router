@@ -91,16 +91,20 @@ if (body) {
                 if (obj.data?.tab) {
                     // 重新定义底栏
                     obj.data.tab = [
-                        { id: 39, name: "直播", uri: "bilibili://live/home", pos: 1 },
-                        { id: 40, name: "推荐", uri: "bilibili://pegasus/promo", pos: 2, default_selected: 1 },
-                        { id: 3502, name: "番剧", uri: "bilibili://pgc/bangumi_v2", pos: 3 },
-                        { id: 41, name: "热门", uri: "bilibili://pegasus/hottopic", pos: 4 },
-                        { id: 151, name: "影视", uri: "bilibili://pgc/cinema-tab", pos: 5 }
+                        { id: 39, tab_id: "直播tab", name: "Live", uri: "bilibili://live/home", pos: 1 },
+                        { id: 40, tab_id: "推荐tab", name: "For You", uri: "bilibili://pegasus/promo", pos: 2, default_selected: 1 },
+                        { id: 3502, tab_id: "bangumi", name: "Anime", uri: "bilibili://pgc/bangumi_v2", pos: 3 },
+                        { id: 41, tab_id: "hottopic", name: "Trending", uri: "bilibili://pegasus/hottopic", pos: 4 },
+                        // { id: 151, name: "影视", uri: "bilibili://pgc/cinema-tab", pos: 5 }
                     ];
-                }
+                }/*
                 if (obj.data.top) {
                     // 顶部只保留消息
                     obj.data.top = [{ id: 481, name: "消息", uri: "bilibili://link/im_home", pos: 1 }];
+                }*/
+                if (obj.data.top) {
+                    obj.data.top = obj.data.top.filter(item => item.id === 3510);
+                    obj.data.top[0].pos = 1;
                 }
                 if (obj.data.bottom) {
                     obj.data.bottom = obj.data.bottom.filter(item => bottomIdKeep.has(item.id));
@@ -127,5 +131,16 @@ if (body) {
                 delete obj.data.vip_section_v2; // 移除会员购买入口
                 obj.data.live_tip = {}; 
                 obj.data.answer = {};
+                body = JSON.stringify(obj);
+            } catch (e) {
+                console.log("bilibili account_mine error:" + e);
+            }
+            break;
 
-                //
+        default:
+            // 匹配不到 URL 时不做处理
+            break;
+    }
+}
+
+$done({ body: body });
