@@ -129,11 +129,22 @@ if (body) {
                 });
 
                 delete obj.data.vip_section_v2; // 移除会员购买入口
-                obj.data.live_tip = {}; 
+                obj.data.live_tip = {};
                 obj.data.answer = {};
                 body = JSON.stringify(obj);
             } catch (e) {
                 console.log("bilibili account_mine error:" + e);
+            }
+            break;
+
+        //8. 开屏广告预加载
+        case /^https:\/\/app\.bilibili\.com\/x\/v2\/splash\/list/.test($request.url):
+            try {
+                let obj = JSON.parse(body);
+                obj.data.show = [{}];
+                body = JSON.stringify(obj);
+            } catch (e) {
+                console.log("bilibili splash list error:" + e);
             }
             break;
 
