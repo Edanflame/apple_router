@@ -211,419 +211,223 @@ function Env(n, t) {
 }
 
 const $ = new Env("小红书");
-var _0xodj = 'jsjiami.com.v7';
 
-// --- 混淆解密辅助函数 ---
-function _0x410e(_0x55a891, _0x37c28f) {
-  const _0x5cbc4e = _0x5cbc();
-  return _0x410e = function(_0x410efd, _0x5d063e) {
-    _0x410efd = _0x410efd - 0x1dd;
-    let _0xdb927b = _0x5cbc4e[_0x410efd];
-    if (_0x410e['mYvJaA'] === undefined) {
-      var _0x428e62 = function(_0x5191d3) {
-        const _0x4d1183 = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789+/=';
-        let _0x4614bb = '',
-          _0x79f125 = '';
-        for (let _0x2be4d9 = 0x0, _0x222a3c, _0x2ed3f2, _0x4d5182 = 0x0; _0x2ed3f2 = _0x5191d3['charAt'](_0x4d5182++); ~_0x2ed3f2 && (_0x222a3c = _0x2be4d9 % 0x4 ? _0x222a3c * 0x40 + _0x2ed3f2 : _0x2ed3f2, _0x2be4d9++ % 0x4) ? _0x4614bb += String['fromCharCode'](0xff & _0x222a3c >> (-0x2 * _0x2be4d9 & 0x6)) : 0x0) {
-          _0x2ed3f2 = _0x4d1183['indexOf'](_0x2ed3f2);
-        }
-        for (let _0x24a060 = 0x0, _0x243ea6 = _0x4614bb['length']; _0x24a060 < _0x243ea6; _0x24a060++) {
-          _0x79f125 += '%' + ('00' + _0x4614bb['charCodeAt'](_0x24a060)['toString'](0x10))['slice'](-0x2);
-        }
-        return decodeURIComponent(_0x79f125);
-      };
-      const _0x41ee56 = function(_0x286786, _0x15e839) {
-        let _0x241f67 = [],
-          _0x3d1f3a = 0x0,
-          _0x2e580e, _0x12ea92 = '';
-        _0x286786 = _0x428e62(_0x286786);
-        let _0x19cd80;
-        for (_0x19cd80 = 0x0; _0x19cd80 < 0x100; _0x19cd80++) {
-          _0x241f67[_0x19cd80] = _0x19cd80;
-        }
-        for (_0x19cd80 = 0x0; _0x19cd80 < 0x100; _0x19cd80++) {
-          _0x3d1f3a = (_0x3d1f3a + _0x241f67[_0x19cd80] + _0x15e839['charCodeAt'](_0x19cd80 % _0x15e839['length'])) % 0x100, _0x2e580e = _0x241f67[_0x19cd80], _0x241f67[_0x19cd80] = _0x241f67[_0x3d1f3a], _0x241f67[_0x3d1f3a] = _0x2e580e;
-        }
-        _0x19cd80 = 0x0, _0x3d1f3a = 0x0;
-        for (let _0x102448 = 0x0; _0x102448 < _0x286786['length']; _0x102448++) {
-          _0x19cd80 = (_0x19cd80 + 0x1) % 0x100, _0x3d1f3a = (_0x3d1f3a + _0x241f67[_0x19cd80]) % 0x100, _0x2e580e = _0x241f67[_0x19cd80], _0x241f67[_0x19cd80] = _0x241f67[_0x3d1f3a], _0x241f67[_0x3d1f3a] = _0x2e580e, _0x12ea92 += String['fromCharCode'](_0x286786['charCodeAt'](_0x102448) ^ _0x241f67[(_0x241f67[_0x19cd80] + _0x241f67[_0x3d1f3a]) % 0x100]);
-        }
-        return _0x12ea92;
-      };
-      _0x410e['PlYzpQ'] = _0x41ee56, _0x55a891 = arguments, _0x410e['mYvJaA'] = !![];
-    }
-    const _0x233c70 = _0x5cbc4e[0x0],
-      _0x16d207 = _0x410efd + _0x233c70,
-      _0x4a44c4 = _0x55a891[_0x16d207];
-    return !_0x4a44c4 ? (_0x410e['nfxovO'] === undefined && (_0x410e['nfxovO'] = !![]), _0xdb927b = _0x410e['PlYzpQ'](_0xdb927b, _0x5d063e), _0x55a891[_0x16d207] = _0xdb927b) : _0xdb927b = _0x4a44c4, _0xdb927b;
-  }, _0x410e(_0x55a891, _0x37c28f);
-}
+/**
+ * 小红书 全能脚本 (去广告/无水印保存/净化)
+ * 还原逻辑对照
+ */
 
-function _0x5cbc() {
-  const _0x296b24 = (function() {
-    return [_0xodj, 'RbjfsljSwbiEBapGPmJIirP.EwrcoTmM.elvAW7A==', 'Cmosf8kPWRf7W6NcUCk9', 'W79GBmoVrW', 'W7/cLCoPW74bs0NdP8k1', 'W7ZcGmoPW6qk', 'WQtcNqSKdvC', 'W6tdQSkBAgLXWQX+', 'FYLuWPRcKa', 'W5ZdO8kB', 'q2LqBaXQW5i', 'WPlcUmo/wq', 'vdeCnmoQW44NWQNcVCkPaqHiWRxdPH3cPa', 'W41nnmobW6yCW6NcSSonWOO', 'WP1EC8ozWOq3xdH4u8o0WQJcGSoAqH4', 'sx3cNNzu', 'WPyxFCoHW7/dVJvfW7fQW4JcMcldJSovoCkn', 'rYfyWRu', 'W4bFWRlcQCkHWRLLF8kGW5FcQSoKEW', 'WRtcNqm1b3PzWOpdK1pdRSkNW7ldNG', 'WPzoECotWPebqdDru8ofWR/cN8oDqqtcMq', 'k8kCCufOW5ldPcqpW7vAW5yOlsOLvW', 'Fmkbva', 'W4RdL8onuG', 'W4f/FCo2vZTVW5qsymopW6nbWOSm', 'WROtW7BcT14NW6jiW4jPgmkTbSouAmoVCa', 'WPjXnMmpWQBdGmocsSknW63cIvr5W58jWPO', 'gCoOW7hcTSogWRe', 'aSoOWPxdSWm', 'sNtcJxDuW4bJW5aBuG', 'W6vGE8oNvxq', 'c8oSWOxdUW', 'kSoYWRO', 'D2eFWPhdJ8oszmoqgCkgECovo8kHWOiyW4y', 'W49GWRhcSX/cTmoVqHtcLGTnkW', 'F8oqba', 'qmoqW5rvhq', 'sMJcNMXFW7HJW5Ge', 'b8kbWPCFqCo1W6HOeYhcP1S', 'abBdL8oCAHhdV8kKeGhcMcldPSo1W6y', 'tmoQWRO7jfeuW4GwWQPiWRddPCkt', 'vsLiWRhdTmoAwYzniHZdR8k6W5q', 'hqpdUSoGxuzFW78', 'jLeUWRddRG', 'qwLd', 'WPaxySo0', 'of8OWQBdLeO6', 'W70VW57cJLK6W64', 'WPdcVxFdGbm', 'hSoGsmoghCoSfSkaia', 'B8kyc8on', 'WOddH8kOWPNcISkmW7n3W4u', 'hSo6W5RcVSouWQDSW4aetrL9', 'vdeucSo3W48', 'iCknu8opW7yHWQVdRCo4Cq', 'A3ijWQddMCoEzSowv8od', 'WOX7pq', 'jmoyeCkyWOS', 'WOdcTmoGwsZcOG', 'j8ofc8kw', 'vsqCnmoTW4mCWPxcTCkOcavCW5dcQa', 'rCodW4O', 'W5BcGmkIWP4', 'eCoQs8omdmoQ', 'Ddeuf8oXW4qOWQdcS8kIcWnWWO/dSq', 'W5FdQui', 'gaTMWPpdKHBcGuzbgGO', 'WOH1kv0jWQBdImo8wCkhW6BcSKbjW54yWOq', 'aa/dVCo9swTjW63dPc7cU8o8kGBcTKKh', 'nSoTWRCeWPK1W4izatVcUW', 'emoxWQa', 'i0m5WRe', 'W6b9BCoNw0yKW656W5e6', 'W7j1FCoJ'].concat((function() {
-      return ['W7vqWQ7cHa', 'ut4hg8oT', 'tSoMWQ0Q', 'oge+', 'iSo+W4RcLConWQ1yW6ydsW53lJvJ', 'amo6W5ZcPmoh', 'WOpdKSkOWOpcGq', 'W43dQv4', 'e8oGuCooj8oUc8ojDa', 'uJediq', 'mLeOWQi', 'W4r2w8k0W4a', 'fCoGuCo0fmoReCoooSo1', 'WQWxW67cTW', 'whvbEW', 'WQyzW67cS3uUW69KW5e', 'DmkprZy', 'W7VcNY1ZxCkS', 'WPKWW7ddOG', 'W4JdUcpcN1xdHCktc33cTSoiW43dHq', 'W5nejSohW6yXW5/cQCozWOK', 'b8oSWOldHrbJlmoVW7RdLSoAEhfnnIz2', 'W5hdVK/dT2iDWOb1B8k3fKhdQKi', 'gmozWRpcSa', 'BCkCgSoicmoh', 'mmkvy2X/W6JdOsSDW78', 'jH/dNem', 'WO7cVmo/CJVcTCkUWOVcUbThW5qRbCkml1O', 'tIviWR3dUSoAtcHmks/dO8k0W549W6SJ', 'W47dH8ontG', 'wCkCg8oUxCkiFJjhpd4xASkPhq', 'dSoDWRFcVSozW4y', 'W6BdPSkmEq', 'WP9kACoB', 'W6vXFCoMvw02', 'd8oQsCokdmoNbSoLz8k6W5BdQCocEqRcPmo8', 'sCo3WQW3jwKBW4Sk', 'WORcKmoycd3cTG', 'W7ZdRmklAfLcWQXPWPK', 'cqVdRCo1', 'udrEWR3dTCoIvI9d', 'ymk0bCozAa', 'W5pcHCkL', 'sMnqBtj3W5C', 'EmkbxJjNWRG4WOhcMXi', 'W4PajSoh', 'W77dQSkjAfLEWQ11WPNdJW', 'W5RdK8okr0q', 'W5FdPCk9gZpcOCkuWQxcHqS', 'WPtcRhBdHahcRCorigNcM8oKW6JdIYTifXa', '5PkQ57su56+c6k28', 'WRlcLruJdq', 'WOxcLmovgZ3cM8kvW7JcJa', 'WOhcNmoqftK', 'WPvMnG', 'W6vGAmoWqeyJW7DYW5e', 'W5f3wSkLW5hcSCk/W53dHCoqoCouo8oXWQee', 'WRhcJrqKduHIWP/dGu/dTmkHW7ddN8oabW', 'ir/dNeC2WRSWemoIW6JdKLu', 'vCoQWRO', 'iSoFa243W6KkWORdUxNcPSop', 'WP7cRhZdIblcK8owjedcL8owW6RdGYa', 'yqbTW7RcSHurWPnbWPBcLSkI', 'W5q/b8kiW4q', 'W7nqWQ3cN1dcSa', 'WPeaFq', 'zSkydmoyv8kvsHDDpW', 'W7T7ASoRsJfOW6mpyCooW5nTWOeAv8ky', 'xNjfFszW', 'hHRdTCo1w1W', 'vSoSWRK', 'W7b1DmozxtPWW7e', 'W5hdP0VdSZG', 'WQKsW6K'].concat((function() {
-        return ['jrVdNeyWWQaJ', 'mbVdJea+WRSPjSoYW6JcJqFcHMpdGmkXsmoGEvRdTmki', 'eCoGqG', 'xNjwyd1KW58IW7S', 'vsacpmoWW4WQWPdcOW', 'B2eEWR3dMa', 'WOtdMmoHW4BdTmkFWR7dO3NdKq', 'WQhcSSoioJayWOP0WO/dJ0Xb', '5Pcp57AD56236k2g', 'EmkndCofxmkaFarw', 'W5ldSKVdPtWL', 'zIvhWO7cKmk6FeRdSq', 'F8kCdmoy', 'W7RcKIbkqa', 'dbJdJSoy', 'W5v5vmoq', 'mSoLWRikWP0zW64uhI3cKc0CW6TDuSki', 'dSoNrmozhCoDc8ouzSk6', 'W7ddVKRdH24AW4rnACkNfL3cMWFcUa', 'W5hcJSkMWOBdG8kBWPZdN1O', 'bSoYW4RcSSonW7Gt', 'pxKwW5ddG8orxLFdHsJcH8oI', 'm8kCCg1/', 'W5ddNCokq2JdTSkO', 'WPFdKSkUWPe', 'W7tdRmknsgDnWQ0', 'W6bUA8oDvJnTW6qc', 'l8oHWQqqWPK', 'mmkjChD0W5ddOsmc', 'vxpcIW', 'WOatzCoH', 'iLuVWRC', 'BhqEWQVdNmoA', 'W4lcGmkKWOZdUq', 'W5pdL8oAt1BdGmk/lJtdN1GQWPDgF8k7fG', 'WOuwySoFW6ZdQt5VW6z2', 'yI1cWOdcLa', 'AmoMWROCjgezW7SAWQPpWR7dJCkDwG', 'z8kCeColrSkp', 'WOqeW6BdTmo3W5a/j8oWWOK', 'tMLuCaXVW58QW6K', 'fmoYW53cU8olWQLw', 'WORcSSoR', 'WPnGkgSvWQtdJCo7va', 'nWZdHa', 'W4FdLCoetxa', 'WOX8wSoxWOrYW7ZcTCoko8orWRJdG3m', 'brZdL8oCuWtdU8kJvXpcLci', 'c8ozWRpcTmozW596WR9gcHr5f1hdHLddGSkp', 'W4Txoq', 'pW/dVCowr1TrW5ZdUItcKmoWdG3cQq', 'WPC4uSoeW4O', 'fmoxWQRcTmonW5D+WQKdjGX/ba', 'emorWRhcTmo0W4jZWQjzoG', 'W5PeiCos', 'BmkCc8oiu8ktDa', 'fCoMs8oFqSkI', 'WOy1dmo0WPBdQ8oMWOxdNCo7iSochSoE', 'WOuWbmo/WPxdRCoGWOpcRmke', 'WOXZu8otW40WWPZdJmoeaa', 'jfu4WRFdVKe7W4is', 'WPxdMSk2WPxcU8kcW74', 'jCovfmkFWOVdIaSlgmoIWOfXW7iRoCkfWRy', 'qgnjBaXZW5CNW6NcGLGI', 'pmoHWQigWPSPW68CdtS', 'W7VcNYvnqmkTW5blixjIAvVdVIhcNIe', 'W4ZdO13dQtWxBhz/W7FcUSkWW7lcKaOYW60', 'zCkbtCooW4NcLf02d8oUWO1FW6W', 'W4RdUcxcMLBdHmoTl33cKConW48', 'W4tdTmkAWRmwW5tdGCowzspdHdK', 'y8kqeCoyBCkqEHblia'];
-      }()));
-    }()));
-  }());
-  _0x5cbc = function() {
-    return _0x296b24;
-  };
-  return _0x5cbc();
-};
+// 初始化环境变量键值
+$.RedBookPhotoKey = 'RedBookPhotoKey';
+$.RedBookVideoKey = 'redbook_user_video_key';
 
-const _0x31fd09 = _0x410e;
+let body = $response.body;
 
-// --- 环境自执行初始化 ---
-(function(_0x2b69a7, _0x2f4ae0, _0xe7e2b6, _0x567e42, _0x4e928b, _0x12ed46, _0x4fc2f3) {
-  return _0x2b69a7 = _0x2b69a7 >> 0x1, _0x12ed46 = 'hs', _0x4fc2f3 = 'hs', function(_0x184cc6, _0x2fef07, _0x4fad6c, _0x493ff9, _0xdd0870) {
-    const _0x4ebb19 = _0x410e;
-    _0x493ff9 = 'tfi', _0x12ed46 = _0x493ff9 + _0x12ed46, _0xdd0870 = 'up', _0x4fc2f3 += _0xdd0870, _0x12ed46 = _0x4fad6c(_0x12ed46), _0x4fc2f3 = _0x4fad6c(_0x4fc2f3), _0x4fad6c = 0x0;
-    const _0x25be75 = _0x184cc6();
-    while (!![] && --_0x567e42 + _0x2fef07) {
-      try {
-        _0x493ff9 = -parseInt(_0x4ebb19(0x263, '*Re^')) / 0x1 + -parseInt(_0x4ebb19(0x265, 'D0dR')) / 0x2 + -parseInt(_0x4ebb19(0x23a, 'kSHc')) / 0x3 + parseInt(_0x4ebb19(0x1ff, 'Mghs')) / 0x4 * (-parseInt(_0x4ebb19(0x20c, 'xCdY')) / 0x5) + parseInt(_0x4ebb19(0x2b5, 'kSHc')) / 0x6 + parseInt(_0x4ebb19(0x277, 'bVRc')) / 0x7 * (-parseInt(_0x4ebb19(0x257, 'OKjs')) / 0x8) + parseInt(_0x4ebb19(0x29f, 'N0M#')) / 0x9;
-      } catch (_0x504008) {
-        _0x493ff9 = _0x4fad6c;
-      } finally {
-        _0xdd0870 = _0x25be75[_0x12ed46]();
-        if (_0x2b69a7 <= _0x567e42) _0x4fad6c ? _0x4e928b ? _0x493ff9 = _0xdd0870 : _0x4e928b = _0xdd0870 : _0x4fad6c = _0xdd0870;
-        else {
-          if (_0x4fad6c == _0x4e928b['replace'](/[fSRBEPIJTrGleMWAwpb=]/g, '')) {
-            if (_0x493ff9 === _0x2fef07) {
-              _0x25be75['un' + _0x12ed46](_0xdd0870);
-              break;
-            }
-            _0x25be75[_0x4fc2f3](_0xdd0870);
-          }
-        }
-      }
-    }
-  }(_0xe7e2b6, _0x2f4ae0, function(_0x5b5f94, _0x241a55, _0xfce615, _0x108e0c, _0x2b749e, _0xc0ccb4, _0x3e8f22) {
-    return _0x241a55 = '\x73\x70\x6c\x69\x74', _0x5b5f94 = arguments[0x0], _0x5b5f94 = _0x5b5f94[_0x241a55](''), _0xfce615 = '\x72\x65\x76\x65\x72\x73\x65', _0x5b5f94 = _0x5b5f94[_0xfce615]('\x76'), _0x108e0c = '\x6a\x6f\x69\x6e', (0x1b49db, _0x5b5f94[_0x108e0c](''));
-  });
-}(0x180, 0x5228c, _0x5cbc, 0xc2), _0x5cbc) && (_0xodj = _0x5cbc);
-
-$[_0x31fd09(0x245, ')5cf')] = _0x31fd09(0x272, 'YXE^'), $[_0x31fd09(0x283, 'wfOp')] = 'redbook_user_video_key';
-
-// --- 核心逻辑入口 ---
-let body = $response['body'];
 if (body) {
-  switch (!![]) {
-    // 1. 小组件处理
-    case /api\/sns\/v\d+\/note\/widgets/[_0x31fd09(0x247, 'd)K7')]($request[_0x31fd09(0x1fd, 'g]p8')]):
-      try {
-        let obj = JSON[_0x31fd09(0x201, 'exAd')](body);
-        obj[_0x31fd09(0x248, 'd22#')] = {}, body = JSON[_0x31fd09(0x275, '0a2Z')](obj);
-      } catch (_0x1b82f2) {
-        console['log']('widgets:\x20' + _0x1b82f2);
-      }
-      break;
-
-      // 2. 动态照片保存
-    case /api\/sns\/v\d+\/note\/live_photo\/save/[_0x31fd09(0x254, 'UHJR')]($request['url']):
-      try {
-        let obj = JSON[_0x31fd09(0x26f, '&Kv7')](body);
-        obj[_0x31fd09(0x1fc, ')(jY')][_0x31fd09(0x256, 'No&v')] = JSON[_0x31fd09(0x208, 'D0dR')]($[_0x31fd09(0x2a8, ')5cf')]($[_0x31fd09(0x2a3, '@g]*')])), body = JSON['stringify'](obj);
-      } catch (_0x1d2b2c) {
-        console['log']('live_photo:\x20' + _0x1d2b2c);
-      }
-      break;
-
-      // 3. 视频保存
-    case /api\/sns\/v\d+\/note\/video\/save/[_0x31fd09(0x27d, ')5cf')]($request[_0x31fd09(0x21e, 'wfOp')]):
-      try {
-        let obj = JSON['parse'](body),
-          tmp = JSON[_0x31fd09(0x1e2, 'a*Y2')]($['getdata']($[_0x31fd09(0x296, 'B9$)')]));
-        for (let module of tmp) {
-          module[_0x31fd09(0x20b, 'D0dR')] == obj[_0x31fd09(0x234, 'xCdY')][_0x31fd09(0x1e7, 'U@pO')] && (obj[_0x31fd09(0x21b, 'bVRc')] = module);
-        }
-        body = JSON[_0x31fd09(0x24f, '76CK')](obj);
-      } catch (_0x13f932) {
-        console[_0x31fd09(0x215, 'n2eb')](_0x31fd09(0x285, 'HE&6') + _0x13f932);
-      }
-      break;
-
-      // 4. 评论列表
-    case /api\/sns\/v\d+\/note\/comment\/list/['test']($request['url']):
-      try {
-        let obj = JSON[_0x31fd09(0x28c, 'g]p8')](body);
-        for (let module of obj['data'][_0x31fd09(0x26e, 'di%u')]) {
-          if (module['pictures']) {
-            module['user']['user_id'] = module[_0x31fd09(0x235, 'U@pO')][_0x31fd09(0x238, 'DK(E')], delete module[_0x31fd09(0x224, 'D0dR')][_0x31fd09(0x212, '0a2Z')];
-            for (let item of module[_0x31fd09(0x207, '@g]*')]) {
-              item[_0x31fd09(0x1dd, 'az6u')]?. [_0x31fd09(0x27c, 'KH$L')] && (item['origin_url'] = item[_0x31fd09(0x2b0, 'U@pO')]['image_url'], item[_0x31fd09(0x2a2, 'UHJR')] = item[_0x31fd09(0x2a0, 'g5nr')][_0x31fd09(0x25b, 'S8Xe')]);
+    switch (true) {
+        // 1. 移除笔记中的小组件 (Widgets)
+        case /api\/sns\/v\d+\/note\/widgets/.test($request.url):
+            try {
+                let obj = JSON.parse(body);
+                obj.data = {}; // 清空组件数据
+                body = JSON.stringify(obj);
+            } catch (e) {
+                console.log('移除组件失败: ' + e);
             }
-          }
-        }
-        body = JSON['stringify'](obj);
-      } catch (_0x49c785) {
-        console[_0x31fd09(0x28e, 'U)$E')](_0x31fd09(0x20e, 'nbsi') + _0x49c785);
-      }
-      break;
+            break;
 
-      // 5. RedTube (视频流) 处理
-    case /api\/sns\/v\d+\/note\/redtube/[_0x31fd09(0x20a, 'WAB8')]($request['url']):
-      try {
-        let obj = JSON['parse'](body);
-        for (let module of obj[_0x31fd09(0x23e, '&L5J')][_0x31fd09(0x20d, 'kSHc')]) {
-          module[_0x31fd09(0x24a, 'nbsi')] && (module[_0x31fd09(0x1ed, 'WAB8')] = 0x0), module[_0x31fd09(0x1f2, 'xCu#')] && (module['has_related_goods'] = ![]), module[_0x31fd09(0x281, 'g]p8')] && (module[_0x31fd09(0x1f1, 'd22#')] = {
-            'disable_save': ![],
-            'disable_watermark': !![],
-            'disable_weibo_cover': !![]
-          }), module[_0x31fd09(0x1ea, 'UHJR')] && (module[_0x31fd09(0x1fa, 'U)$E')][_0x31fd09(0x1eb, 'd22#')] = [{
-            'type': _0x31fd09(0x1f0, '5GUJ')
-          }, {
-            'type': _0x31fd09(0x264, 'kSHc')
-          }, {
-            'type': _0x31fd09(0x284, 'bVRc')
-          }, {
-            'type': 'native_voice'
-          }, {
-            'type': _0x31fd09(0x225, 'rJGu')
-          }, {
-            'type': 'dislike'
-          }, {
-            'type': _0x31fd09(0x246, '&L5J')
-          }, {
-            'type': _0x31fd09(0x205, 'B9$)')
-          }]);
-        }
-        body = JSON[_0x31fd09(0x24b, 'B9$)')](obj);
-      } catch (_0x1640f8) {
-        console[_0x31fd09(0x22e, '&Kv7')](_0x31fd09(0x2ad, 'D0dR') + _0x1640f8);
-      }
-      break;
-
-      // 6. TabFeed / VideoFeed 处理
-    case /api\/sns\/v\d+\/note\/(tab|video)feed/[_0x31fd09(0x290, 'D0dR')]($request['url']):
-      try {
-        let obj = JSON[_0x31fd09(0x276, 'cs6[')](body),
-          tmp = JSON[_0x31fd09(0x22c, 'HE&6')]($[_0x31fd09(0x252, 'U@pO')]($[_0x31fd09(0x21d, '0a2Z')])),
-          datas = [...tmp],
-          modules = obj['data'][_0x31fd09(0x1e0, 'rJGu')] || obj[_0x31fd09(0x226, 'rJGu')];
-        for (let module of modules) {
-          module[_0x31fd09(0x1f6, 'xCdY')] && (module[_0x31fd09(0x2af, 'lDm^')] = 0x0);
-          module['has_related_goods'] && (module[_0x31fd09(0x26a, 'di%u')] = ![]);
-          module[_0x31fd09(0x293, 'No&v')] && (module[_0x31fd09(0x221, '@g]*')] = {
-            'disable_save': ![],
-            'disable_watermark': !![],
-            'disable_weibo_cover': !![]
-          });
-          module[_0x31fd09(0x282, 'nbsi')] && (module[_0x31fd09(0x240, 'xCu#')][_0x31fd09(0x25f, 'Hel!')] = [{
-            'type': _0x31fd09(0x206, '76CK')
-          }, {
-            'type': 'generate_image'
-          }, {
-            'type': _0x31fd09(0x299, 'U@pO')
-          }, {
-            'type': _0x31fd09(0x211, 'HE&6')
-          }, {
-            'type': 'video_speed'
-          }, {
-            'type': _0x31fd09(0x29a, 'HE&6')
-          }, {
-            'type': _0x31fd09(0x267, '0971')
-          }, {
-            'type': 'video_feedback'
-          }]);
-          if (module['video_info_v2']?.['media']?. [_0x31fd09(0x27b, '&Kv7')]?. [_0x31fd09(0x280, 'N0M#')]) {
-            let idata = {};
-            idata[_0x31fd09(0x26b, 'U@pO')] = 0x2, idata[_0x31fd09(0x288, 'No&v')] = module['id'], idata['download_url'] = module[_0x31fd09(0x1ef, 'X@RR')][_0x31fd09(0x295, 'KH$L')][_0x31fd09(0x291, 'cs6[')]['h265'][0x0][_0x31fd09(0x269, ')5cf')], datas[_0x31fd09(0x244, 'No&v')](idata);
-          }
-        }
-        while (datas[_0x31fd09(0x297, ')5cf')] > 0x64) {
-          datas[_0x31fd09(0x216, 'lDm^')]();
-        }
-        $[_0x31fd09(0x249, 'rJGu')](JSON['stringify'](datas), $[_0x31fd09(0x1f5, 'di%u')]), body = JSON['stringify'](obj);
-      } catch (_0x5c4472) {
-        console[_0x31fd09(0x1f3, '*Re^')]('videofeed:\x20' + _0x5c4472);
-      }
-      break;
-
-      // 7. 通用笔记流
-    case /api\/sns\/v\d+\/note\/feed/['test']($request['url']):
-      try {
-        let obj = JSON[_0x31fd09(0x22c, 'HE&6')](body);
-        for (let module of obj[_0x31fd09(0x1ee, '76CK')]) {
-          module[_0x31fd09(0x2b2, 'DK(E')] && (module[_0x31fd09(0x1e9, '0a2Z')] = 0x0);
-          module[_0x31fd09(0x1fe, 'cs6[')] && (module[_0x31fd09(0x242, 'OKjs')] = ![]);
-          if (module[_0x31fd09(0x236, 'xCdY')])
-            for (let item of module[_0x31fd09(0x24d, 'd)K7')]) {
-              item[_0x31fd09(0x2b3, '&Kv7')] = {
-                'disable_save': ![],
-                'disable_watermark': !![],
-                'disable_weibo_cover': !![]
-              };
+        // 2. 实况照片 (Live Photo) 保存逻辑
+        case /api\/sns\/v\d+\/note\/live_photo\/save/.test($request.url):
+            try {
+                let obj = JSON.parse(body);
+                // 从本地持久化存储中读取之前截获的无水印视频数据，强制覆盖给 App
+                obj.data.video = JSON.parse($.getdata($.RedBookPhotoKey));
+                body = JSON.stringify(obj);
+            } catch (e) {
+                console.log('Live Photo 保存逻辑错误: ' + e);
             }
-        }
-        body = JSON[_0x31fd09(0x28b, 'di%u')](obj);
-      } catch (_0x5504d4) {
-        console[_0x31fd09(0x26d, 'B9$)')](_0x31fd09(0x23f, ')5cf') + _0x5504d4);
-      }
-      break;
+            break;
 
-      // 8. 图片流处理
-    case /api\/sns\/v\d+\/note\/imagefeed/[_0x31fd09(0x229, 'B9$)')]($request[_0x31fd09(0x21a, 'exAd')]):
-      try {
-        let obj = JSON['parse'](body),
-          tmp = JSON['parse']($[_0x31fd09(0x271, 'YXE^')]($[_0x31fd09(0x22b, 'HE&6')])),
-          datas = [...tmp],
-          modules = obj[_0x31fd09(0x28f, 'WAB8')]['items'] || obj[_0x31fd09(0x241, 'YXE^')];
-        for (let module of modules) {
-          module[_0x31fd09(0x1f7, 'n2eb')] && (module['related_goods_num'] = 0x0);
-          module[_0x31fd09(0x23c, ')(jY')] && (module[_0x31fd09(0x220, 'n2eb')] = ![]);
-          if (module[_0x31fd09(0x22f, 'nbsi')])
-            for (let item of module['note_list']) {
-              item[_0x31fd09(0x243, '76CK')] = {
-                'disable_save': ![],
-                'disable_watermark': !![],
-                'disable_weibo_cover': !![]
-              };
-              if (item[_0x31fd09(0x21f, 'ZcNv')])
-                for (let it of item[_0x31fd09(0x222, 'g]p8')]) {
-                  if (it[_0x31fd09(0x2a6, '&L5J')]) {
-                    let idata = {};
-                    idata['video_id'] = it[_0x31fd09(0x255, 'd)K7')][_0x31fd09(0x1f9, ')(jY')][_0x31fd09(0x1e4, 'd)K7')], idata[_0x31fd09(0x2ae, 'bEqG')] = it['live_photo_file_id'], idata[_0x31fd09(0x25d, 'n2eb')] = it['live_photo'][_0x31fd09(0x25c, 'S8Xe')][_0x31fd09(0x1fb, 'rJGu')]['h265'][0x0][_0x31fd09(0x23b, 'UHJR')], datas[_0x31fd09(0x218, 'lDm^')](idata);
-                  }
+        // 3. 普通视频无水印保存
+        case /api\/sns\/v\d+\/note\/video\/save/.test($request.url):
+            try {
+                let obj = JSON.parse(body);
+                let cachedData = JSON.parse($.getdata($.RedBookVideoKey));
+                // 遍历本地缓存，找到与当前视频 ID 匹配的无水印链接进行替换
+                for (let item of cachedData) {
+                    if (item.video_id == obj.data.video_id) {
+                        obj.data = item; 
+                    }
                 }
+                body = JSON.stringify(obj);
+            } catch (e) {
+                console.log('视频保存逻辑错误: ' + e);
             }
-        }
-        while (datas[_0x31fd09(0x21c, 'nbsi')] > 0x64) {
-          datas[_0x31fd09(0x27e, 'DK(E')]();
-        }
-        $['setdata'](JSON[_0x31fd09(0x1e1, 'a*Y2')](datas), $['RedBookPhotoKey']), body = JSON['stringify'](obj);
-      } catch (_0x4f1b65) {
-        console[_0x31fd09(0x273, 'nbsi')]('imagefeed:\x20' + _0x4f1b65);
-      }
-      break;
+            break;
 
-      // 9. 首页分类处理
-    case /api\/sns\/v\d+\/homefeed\/categories\?/[_0x31fd09(0x1e8, 'OKjs')]($request[_0x31fd09(0x1e6, 'az6u')]):
-      try {
-        let obj = JSON[_0x31fd09(0x25a, '5GUJ')](body);
-        obj[_0x31fd09(0x2a7, 'UHJR')][_0x31fd09(0x2b1, 'g]p8')] = obj[_0x31fd09(0x241, 'YXE^')]['categories'][_0x31fd09(0x1e3, '5GUJ')](_0x458a57 => !(_0x458a57['oid'] == _0x31fd09(0x2a5, '&L5J') || _0x458a57[_0x31fd09(0x22a, 'wB&Z')] == _0x31fd09(0x204, 'g5nr') || _0x458a57[_0x31fd09(0x262, 'B9$)')] == 'homefeed.live')), body = JSON[_0x31fd09(0x29c, 'n2eb')](obj);
-      } catch (_0x34185f) {
-        console[_0x31fd09(0x209, 'U@pO')](_0x31fd09(0x261, 'YXE^') + _0x34185f);
-      }
-      break;
+        // 4. 评论区图片去水印
+        case /api\/sns\/v\d+\/note\/comment\/list/.test($request.url):
+            try {
+                let obj = JSON.parse(body);
+                for (let comment of obj.data.comments) {
+                    if (comment.pictures) {
+                        for (let pic of comment.pictures) {
+                            // 将预览图链接替换为原图链接
+                            if (pic.origin_url) {
+                                pic.url = pic.origin_url;
+                            }
+                        }
+                    }
+                }
+                body = JSON.stringify(obj);
+            } catch (e) {
+                console.log('评论区去水印错误: ' + e);
+            }
+            break;
 
-      // 10. 搜索提示
-    case /api\/sns\/v\d+\/search\/hint/[_0x31fd09(0x290, 'D0dR')]($request[_0x31fd09(0x21a, 'exAd')]):
-      try {
-        let obj = JSON[_0x31fd09(0x292, 'bVRc')](body);
-        obj[_0x31fd09(0x1fc, ')(jY')]?. [_0x31fd09(0x1de, ')5cf')] && (obj[_0x31fd09(0x289, 'bEqG')]['hint_words'] = [{
-          'title': _0x31fd09(0x259, 'X@RR'),
-          'type': 'firstEnterOther#itemCfRecWord#搜索笔记#1',
-          'search_word': _0x31fd09(0x279, 'g9t4')
-        }]), body = JSON[_0x31fd09(0x210, 'bEqG')](obj);
-      } catch (_0x21140b) {
-        console[_0x31fd09(0x29b, 'OKjs')](_0x31fd09(0x2a9, 'nbsi') + _0x21140b);
-      }
-      break;
+        // 5. 短视频流 (RedTube) 处理：去除保存限制和水印标记
+        case /api\/sns\/v\d+\/note\/redtube/.test($request.url):
+            try {
+                let obj = JSON.parse(body);
+                for (let item of obj.data.items) {
+                    // 解除保存限制
+                    if (item.f_ads) item.f_ads = 0;
+                    if (item.has_related_goods) item.has_related_goods = false;
+                    // 强制开启允许保存、禁用水印
+                    item.video_detail_info = {
+                        'disable_save': false,
+                        'disable_watermark': true,
+                        'disable_weibo_cover': true
+                    };
+                }
+                body = JSON.stringify(obj);
+            } catch (e) {
+                console.log('视频流处理错误: ' + e);
+            }
+            break;
 
-      // 11. 搜索热榜
-    case /api\/sns\/v\d+\/search\/hot_list/[_0x31fd09(0x230, '0a2Z')]($request['url']):
-      try {
-        let obj = JSON['parse'](body);
-        obj[_0x31fd09(0x231, 'D0dR')] = {
-          'scene': '',
-          'title': '',
-          'items': [],
-          'host': '',
-          'background_color': {},
-          'word_request_id': ''
-        }, body = JSON[_0x31fd09(0x27a, ')(jY')](obj);
-      } catch (_0x4d3f10) {
-        console[_0x31fd09(0x1f3, '*Re^')](_0x31fd09(0x233, 'nbsi') + _0x4d3f10);
-      }
-      break;
+        // 6. 视频/分类信息流：提取无水印下载地址并存入本地
+        case /api\/sns\/v\d+\/note\/(tab|video)feed/.test($request.url):
+            try {
+                let obj = JSON.parse(body);
+                let localVideos = JSON.parse($.getdata($.RedBookVideoKey) || "[]");
+                let items = obj.data.items || obj.items;
+                for (let item of items) {
+                    // 解除下载限制、去除水印标志
+                    item.video_detail_info = {
+                        'disable_save': false,
+                        'disable_watermark': true,
+                        'disable_weibo_cover': true
+                    };
+                    // 核心：捕捉当前视频的真实下载地址并存入本地缓存，供点击保存按钮时调用
+                    if (item.video_info_v2?.media?.stream?.h265) {
+                        let videoData = {
+                            'video_id': item.id,
+                            'download_url': item.video_info_v2.media.stream.h265[0].master_url
+                        };
+                        localVideos.push(videoData);
+                    }
+                }
+                // 只保留最近 100 条记录
+                while (localVideos.length > 100) localVideos.shift();
+                $.setdata(JSON.stringify(localVideos), $.RedBookVideoKey);
+                body = JSON.stringify(obj);
+            } catch (e) {
+                console.log('Feed流视频捕捉错误: ' + e);
+            }
+            break;
 
-      // 12. 搜索趋势
-    case /api\/sns\/v\d+\/search\/trending/[_0x31fd09(0x1f4, 'No&v')]($request['url']):
-      try {
-        let obj = JSON[_0x31fd09(0x1e5, 'KH$L')](body);
-        obj[_0x31fd09(0x239, 'Mghs')] = {
-          'title': '',
-          'queries': [],
-          'type': '',
-          'word_request_id': ''
-        }, body = JSON[_0x31fd09(0x202, 'U)$E')](obj);
-      } catch (_0x42d62d) {
-        console['log'](_0x31fd09(0x214, 'cs6[') + _0x42d62d);
-      }
-      break;
+        // 7. 搜索/首页图片流：去除水印标志
+        case /api\/sns\/v\d+\/note\/imagefeed/.test($request.url):
+            try {
+                let obj = JSON.parse(body);
+                let localPhotos = JSON.parse($.getdata($.RedBookPhotoKey) || "[]");
+                let items = obj.data.items || obj.items;
+                for (let item of items) {
+                    for (let note of item.note_list) {
+                        note.video_detail_info = {
+                            'disable_save': false,
+                            'disable_watermark': true,
+                            'disable_weibo_cover': true
+                        };
+                        // 记录实况照片的无水印视频路径
+                        if (note.live_photo && note.live_photo.media.stream.h265) {
+                            let photoData = {
+                                'video_url': note.live_photo.media.stream.h265[0].master_url
+                            };
+                            localPhotos.push(photoData);
+                        }
+                    }
+                }
+                while (localPhotos.length > 100) localPhotos.shift();
+                $.setdata(JSON.stringify(localPhotos), $.RedBookPhotoKey);
+                body = JSON.stringify(obj);
+            } catch (e) {
+                console.log('图片流捕捉错误: ' + e);
+            }
+            break;
 
-      // 13. 开屏广告处理
-    case /api\/sns\/v\d+\/system_service\/splash_config/[_0x31fd09(0x227, '0971')]($request[_0x31fd09(0x268, 'WAB8')]):
-      try {
-        let obj = JSON[_0x31fd09(0x287, 'xCu#')](body);
-        obj[_0x31fd09(0x27f, 'g5nr')][_0x31fd09(0x294, 'WAB8')]['forEach'](_0x266ab2 => {
-          const _0x192b27 = _0x31fd09,
-            _0x3d0ee7 = {
-              'sJCDA': '2208963661',
-              'wjwNs': _0x192b27(0x2ab, 'Hel!'),
-              'JeTPs': function(_0x66c106, _0x1b11bb) {
-                return _0x66c106 === _0x1b11bb;
-              },
-              'ygzkG': 'arFpe'
-            };
-          _0x266ab2[_0x192b27(0x25e, 'rJGu')] = _0x192b27(0x298, 'X@RR'), _0x266ab2['end_time'] = _0x192b27(0x213, 'g9t4'), _0x266ab2[_0x192b27(0x251, 'bVRc')] && (_0x3d0ee7['JeTPs'](_0x192b27(0x250, ')(jY'), _0x3d0ee7[_0x192b27(0x29e, 'No&v')]) ? _0x599c18[_0x192b27(0x258, 'kSHc')] = {
-            'disable_save': ![],
-            'disable_watermark': !![],
-            'disable_weibo_cover': !![]
-          } : _0x266ab2[_0x192b27(0x270, 'xCdY')][_0x192b27(0x28a, 'd)K7')](_0x3fbc03 => {
-            const _0x3dd1c1 = _0x192b27;
-            _0x3fbc03['start_time'] = _0x3d0ee7[_0x3dd1c1(0x2a4, 'WAB8')], _0x3fbc03['end_time'] = _0x3d0ee7[_0x3dd1c1(0x228, '0a2Z')];
-          }));
-        }), body = JSON['stringify'](obj);
-      } catch (_0x101829) {
-        console[_0x31fd09(0x223, '&L5J')](_0x31fd09(0x219, '0a2Z') + _0x101829);
-      }
-      break;
+        // 8. 移除开屏广告 (Splash Config)
+        case /api\/sns\/v\d+\/system_service\/splash_config/.test($request.url):
+            try {
+                let obj = JSON.parse(body);
+                if (obj.data && obj.data.ads_groups) {
+                    obj.data.ads_groups.forEach(group => {
+                        group.start_time = "2208963661"; // 设置开始时间到未来
+                        group.end_time = "2208963661";   // 设置结束时间到未来
+                        if (group.ads) {
+                            group.ads.forEach(ad => {
+                                ad.start_time = 2208963661;
+                                ad.end_time = 2208963661;
+                            });
+                        }
+                    });
+                }
+                body = JSON.stringify(obj);
+            } catch (e) {
+                console.log('开屏广告移除失败: ' + e);
+            }
+            break;
 
-      // 14. 首页 Feed
-    case /api\/sns\/v\d+\/homefeed\?/['test']($request[_0x31fd09(0x29d, 'YXE^')]):
-      try {
-        let obj = JSON[_0x31fd09(0x1ec, 'U)$E')](body);
-        obj[_0x31fd09(0x289, 'bEqG')] = obj[_0x31fd09(0x237, '*Re^')][_0x31fd09(0x217, 'OKjs')](_0x103209 => !_0x103209[_0x31fd09(0x1f8, 'HE&6')]), body = JSON[_0x31fd09(0x28d, 'xCu#')](obj);
-      } catch (_0x2b5fc5) {
-        console['log'](_0x31fd09(0x253, '*Re^') + _0x2b5fc5);
-      }
-      break;
+        // 9. 移除首页和搜索中的广告位
+        case /api\/sns\/v\d+\/homefeed\?/.test($request.url):
+        case /api\/sns\/v\d\/search\/notes/.test($request.url):
+            try {
+                let obj = JSON.parse(body);
+                // 过滤掉所有带有 ads 标记的内容
+                obj.data.items = obj.data.items.filter(item => !item.ads);
+                body = JSON.stringify(obj);
+            } catch (e) {
+                console.log('过滤广告失败: ' + e);
+            }
+            break;
 
-      // 15. 搜索笔记
-    case /api\/sns\/v\d+\/search\/notes\?/['test']($request['url']):
-      try {
-        let obj = JSON[_0x31fd09(0x22d, 'bEqG')](body);
-        obj['data']['items'] = obj[_0x31fd09(0x20f, ')(jY')][_0x31fd09(0x266, 'N0M#')][_0x31fd09(0x24c, 'S8Xe')](_0x278e5f => !_0x278e5f['ads']), body = JSON[_0x31fd09(0x274, 'U@pO')](obj);
-      } catch (_0x322eed) {
-        console[_0x31fd09(0x200, 'g9t4')](_0x31fd09(0x23d, 'wfOp') + _0x322eed);
-      }
-      break;
+        // 10. 净化搜索框：移除搜索热词、移除推荐词
+        case /api\/sns\/v\d+\/search\/hint/.test($request.url):
+            try {
+                let obj = JSON.parse(body);
+                if (obj.data?.hint_words) {
+                    obj.data.hint_words = [{ "title": "搜索笔记" }];
+                }
+                body = JSON.stringify(obj);
+            } catch (e) { }
+            break;
 
-      // 16. 系统服务配置
-    case /api\/sns\/v\d+\/system_service\/config\?/['test']($request['url']):
-      try {
-        let obj = JSON[_0x31fd09(0x1e5, 'KH$L')](body);
-        const propertiesToDelete = [_0x31fd09(0x232, 'Hel!'), _0x31fd09(0x26c, '@g]*'), 'loading_img', 'app_theme', _0x31fd09(0x1df, 'g9t4'), 'highlight_tab'];
-        for (const prop of propertiesToDelete) {
-          obj[_0x31fd09(0x24e, '@g]*')]?. [prop] && delete obj[_0x31fd09(0x289, 'bEqG')][prop];
-        }
-        obj['data']?. [_0x31fd09(0x2a1, '&L5J')] && delete obj['data']['watermark_pic_path'], body = JSON['stringify'](obj);
-      } catch (_0x54da73) {
-        console['log'](_0x31fd09(0x260, '5GUJ') + _0x54da73);
-      }
-      break;
+        // 11. 净化 UI 界面：移除气泡、皮肤、背景图、浮动图标等加载项
+        case /api\/sns\/v\d+\/system_service\/config/.test($request.url):
+            try {
+                let obj = JSON.parse(body);
+                const props = ['bubble_config', 'skin_config', 'loading_img', 'app_theme', 'floating_icon', 'watermark_pic_path'];
+                props.forEach(p => delete obj.data[p]);
+                body = JSON.stringify(obj);
+            } catch (e) { }
+            break;
 
-    default:
-      $done({});
-      break;
-  }
-  $done({
-    'body': body
-  });
-} else $done({});
-
-
+        default:
+            $done({});
+            break;
+    }
+    $done({ body: body });
+} else {
+    $done({});
+}
