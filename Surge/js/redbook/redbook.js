@@ -9,6 +9,207 @@ const version = 'V1.0.27';
  * 核心功能：去广告、解除下载限制、保存无水印视频/实况图片
  */
 
+var version_ = 'jsjiami.com.v7';
+
+// --- Env.js 跨平台环境库 ---
+function Env(n, t) {
+  class s {
+    constructor(t) {
+      this.env = t
+    }
+    send(t, e = "GET") {
+      t = "string" == typeof t ? {
+        url: t
+      } : t;
+      let s = this.get;
+      return "POST" === e && (s = this.post), new Promise((i, r) => {
+        s.call(this, t, (t, e, s) => {
+          t ? r(t) : i(e)
+        })
+      })
+    }
+    get(t) {
+      return this.send.call(this.env, t)
+    }
+    post(t) {
+      return this.send.call(this.env, t, "POST")
+    }
+  }
+  return new class {
+    constructor(t, e) {
+      this.name = t, this.http = new s(this), this.data = null, this.dataFile = "box.dat", this.logs = [], this.isMute = !1, this.isNeedRewrite = !1, this.logSeparator = "\n", this.startTime = (new Date).getTime(), Object.assign(this, e)
+    }
+    isQuanX() {
+      return "undefined" != typeof $task
+    }
+    isSurge() {
+      return "undefined" != typeof $httpClient && "undefined" == typeof $loon
+    }
+    isShadowrocket() {
+      return "undefined" != typeof $rocket
+    }
+    toObj(t, e = null) {
+      try {
+        return JSON.parse(t)
+      } catch {
+        return e
+      }
+    }
+    toStr(t, e = null) {
+      try {
+        return JSON.stringify(t)
+      } catch {
+        return e
+      }
+    }
+    getjson(t, e) {
+      let s = e;
+      if (this.getdata(t)) try {
+        s = JSON.parse(this.getdata(t))
+      } catch {}
+      return s
+    }
+    setjson(t, e) {
+      try {
+        return this.setdata(JSON.stringify(t), e)
+      } catch {
+        return !1
+      }
+    }
+    lodash_get(t, e, s) {
+      let i = t;
+      for (const t of e.replace(/\[(\d+)\]/g, ".$1").split("."))
+        if (i = Object(i)[t], void 0 === i) return s;
+      return i
+    }
+    lodash_set(t, i, e) {
+      return Object(t) !== t || ((i = Array.isArray(i) ? i : i.toString().match(/[^.[\]]+/g) || []).slice(0, -1).reduce((t, e, s) => Object(t[e]) === t[e] ? t[e] : t[e] = Math.abs(i[s + 1]) >> 0 == +i[s + 1] ? [] : {}, t)[i[i.length - 1]] = e), t
+    }
+    getdata(t) {
+      let e = this.getval(t);
+      if (/^@/.test(t)) {
+        var [, s, i] = /^@(.*?)\.(.*?)$/.exec(t), s = s ? this.getval(s) : "";
+        if (s) try {
+          const t = JSON.parse(s);
+          e = t ? this.lodash_get(t, i, "") : e
+        } catch (t) {
+          e = ""
+        }
+      }
+      return e
+    }
+    setdata(t, e) {
+      let s = !1;
+      if (/^@/.test(e)) {
+        var [, i, r] = /^@(.*?)\.(.*?)$/.exec(e), n = this.getval(i), n = i ? "null" === n ? null : n || "{}" : "{}";
+        try {
+          const e = JSON.parse(n);
+          this.lodash_set(e, r, t), s = this.setval(JSON.stringify(e), i)
+        } catch (e) {
+          n = {};
+          this.lodash_set(n, r, t), s = this.setval(JSON.stringify(n), i)
+        }
+      } else s = this.setval(t, e);
+      return s
+    }
+    getval(t) {
+      return this.isSurge() || this.isShadowrocket() ? $persistentStore.read(t) : this.isQuanX() ? $prefs.valueForKey(t) : null
+    }
+    setval(t, e) {
+      return this.isSurge() || this.isShadowrocket() ? $persistentStore.write(t, e) : this.isQuanX() ? $prefs.setValueForKey(t, e) : null
+    }
+    get(t, r = () => {}) {
+      t.headers && (delete t.headers["Content-Type"], delete t.headers["Content-Length"]), this.isSurge() || this.isShadowrocket() ? (this.isSurge() && this.isNeedRewrite && (t.headers = t.headers || {}, Object.assign(t.headers, {
+        "X-Surge-Skip-Scripting": !1
+      })), $httpClient.get(t, (t, e, s) => {
+        !t && e && (e.body = s, e.statusCode = e.status), r(t, e, s)
+      })) : this.isQuanX() && (this.isNeedRewrite && (t.opts = t.opts || {}, Object.assign(t.opts, {
+        hints: !1
+      })), $task.fetch(t).then(t => {
+        var {
+          statusCode: t,
+          statusCode: e,
+          headers: s,
+          body: i
+        } = t;
+        r(null, {
+          status: t,
+          statusCode: e,
+          headers: s,
+          body: i
+        }, i)
+      }, t => r(t)))
+    }
+    post(t, r = () => {}) {
+      t.body && t.headers && !t.headers["Content-Type"] && (t.headers["Content-Type"] = "application/x-www-form-urlencoded"), t.headers && delete t.headers["Content-Length"], this.isSurge() || this.isShadowrocket() ? (this.isSurge() && this.isNeedRewrite && (t.headers = t.headers || {}, Object.assign(t.headers, {
+        "X-Surge-Skip-Scripting": !1
+      })), $httpClient.post(t, (t, e, s) => {
+        !t && e && (e.body = s, e.statusCode = e.status), r(t, e, s)
+      })) : this.isQuanX() && (t.method = "POST", this.isNeedRewrite && (t.opts = t.opts || {}, Object.assign(t.opts, {
+        hints: !1
+      })), $task.fetch(t).then(t => {
+        var {
+          statusCode: t,
+          statusCode: e,
+          headers: s,
+          body: i
+        } = t;
+        r(null, {
+          status: t,
+          statusCode: e,
+          headers: s,
+          body: i
+        }, i)
+      }, t => r(t)))
+    }
+    time(t, e = null) {
+      var s, e = e ? new Date(e) : new Date,
+        i = {
+          "M+": e.getMonth() + 1,
+          "d+": e.getDate(),
+          "H+": e.getHours(),
+          "m+": e.getMinutes(),
+          "s+": e.getSeconds(),
+          "q+": Math.floor((e.getMonth() + 3) / 3),
+          S: e.getMilliseconds()
+        };
+      for (s in /(y+)/.test(t) && (t = t.replace(RegExp.$1, (e.getFullYear() + "").substr(4 - RegExp.$1.length))), i) new RegExp("(" + s + ")").test(t) && (t = t.replace(RegExp.$1, 1 == RegExp.$1.length ? i[s] : ("00" + i[s]).substr(("" + i[s]).length)));
+      return t
+    }
+    msg(t = n, e = "", s = "", i) {
+      var r = t => {
+        return t && ("string" == typeof t ? this.isShadowrocket() ? t : this.isQuanX() ? {
+          "open-url": t
+        } : this.isSurge() ? {
+          url: t
+        } : void 0 : "object" == typeof t ? this.isShadowrocket() ? {
+          openUrl: t.openUrl || t.url || t["open-url"],
+          mediaUrl: t.mediaUrl || t["media-url"]
+        } : this.isQuanX() ? {
+          "open-url": t["open-url"] || t.url || t.openUrl,
+          "media-url": t["media-url"] || t.mediaUrl
+        } : this.isSurge() ? {
+          url: t.url || t.openUrl || t["open-url"]
+        } : void 0 : void 0)
+      };
+      this.isMute || (this.isSurge() || this.isShadowrocket() ? $notification.post(t, e, s, r(i)) : this.isQuanX() && $notify(t, e, s, r(i))), this.isMuteLog || ((r = [""]).push(t), e && r.push(e), s && r.push(s), console.log(r.join("\n")), this.logs = this.logs.concat(r))
+    }
+    log(...t) {
+      0 < t.length && (this.logs = [...this.logs, ...t]), console.log(t.join(this.logSeparator))
+    }
+    logErr(t, e) {
+      !this.isSurge() && !this.isQuanX() && !this.isShadowrocket() ? this.log("", `❗️${this.name}, 错误!`, t.stack) : this.log("", `❗️${this.name}, 错误!`, t)
+    }
+    wait(e) {
+      return new Promise(t => setTimeout(t, e))
+    }
+    done(t = {}) {
+      (new Date).getTime(), this.startTime;
+      (this.isSurge() || this.isQuanX() || this.isShadowrocket()) && $done(t)
+    }
+  }(n, t)
+}
+
 const $ = new Env("小红书");
 var _0xodj = 'jsjiami.com.v7';
 
@@ -425,203 +626,4 @@ if (body) {
   });
 } else $done({});
 
-var version_ = 'jsjiami.com.v7';
 
-// --- Env.js 跨平台环境库 ---
-function Env(n, t) {
-  class s {
-    constructor(t) {
-      this.env = t
-    }
-    send(t, e = "GET") {
-      t = "string" == typeof t ? {
-        url: t
-      } : t;
-      let s = this.get;
-      return "POST" === e && (s = this.post), new Promise((i, r) => {
-        s.call(this, t, (t, e, s) => {
-          t ? r(t) : i(e)
-        })
-      })
-    }
-    get(t) {
-      return this.send.call(this.env, t)
-    }
-    post(t) {
-      return this.send.call(this.env, t, "POST")
-    }
-  }
-  return new class {
-    constructor(t, e) {
-      this.name = t, this.http = new s(this), this.data = null, this.dataFile = "box.dat", this.logs = [], this.isMute = !1, this.isNeedRewrite = !1, this.logSeparator = "\n", this.startTime = (new Date).getTime(), Object.assign(this, e)
-    }
-    isQuanX() {
-      return "undefined" != typeof $task
-    }
-    isSurge() {
-      return "undefined" != typeof $httpClient && "undefined" == typeof $loon
-    }
-    isShadowrocket() {
-      return "undefined" != typeof $rocket
-    }
-    toObj(t, e = null) {
-      try {
-        return JSON.parse(t)
-      } catch {
-        return e
-      }
-    }
-    toStr(t, e = null) {
-      try {
-        return JSON.stringify(t)
-      } catch {
-        return e
-      }
-    }
-    getjson(t, e) {
-      let s = e;
-      if (this.getdata(t)) try {
-        s = JSON.parse(this.getdata(t))
-      } catch {}
-      return s
-    }
-    setjson(t, e) {
-      try {
-        return this.setdata(JSON.stringify(t), e)
-      } catch {
-        return !1
-      }
-    }
-    lodash_get(t, e, s) {
-      let i = t;
-      for (const t of e.replace(/\[(\d+)\]/g, ".$1").split("."))
-        if (i = Object(i)[t], void 0 === i) return s;
-      return i
-    }
-    lodash_set(t, i, e) {
-      return Object(t) !== t || ((i = Array.isArray(i) ? i : i.toString().match(/[^.[\]]+/g) || []).slice(0, -1).reduce((t, e, s) => Object(t[e]) === t[e] ? t[e] : t[e] = Math.abs(i[s + 1]) >> 0 == +i[s + 1] ? [] : {}, t)[i[i.length - 1]] = e), t
-    }
-    getdata(t) {
-      let e = this.getval(t);
-      if (/^@/.test(t)) {
-        var [, s, i] = /^@(.*?)\.(.*?)$/.exec(t), s = s ? this.getval(s) : "";
-        if (s) try {
-          const t = JSON.parse(s);
-          e = t ? this.lodash_get(t, i, "") : e
-        } catch (t) {
-          e = ""
-        }
-      }
-      return e
-    }
-    setdata(t, e) {
-      let s = !1;
-      if (/^@/.test(e)) {
-        var [, i, r] = /^@(.*?)\.(.*?)$/.exec(e), n = this.getval(i), n = i ? "null" === n ? null : n || "{}" : "{}";
-        try {
-          const e = JSON.parse(n);
-          this.lodash_set(e, r, t), s = this.setval(JSON.stringify(e), i)
-        } catch (e) {
-          n = {};
-          this.lodash_set(n, r, t), s = this.setval(JSON.stringify(n), i)
-        }
-      } else s = this.setval(t, e);
-      return s
-    }
-    getval(t) {
-      return this.isSurge() || this.isShadowrocket() ? $persistentStore.read(t) : this.isQuanX() ? $prefs.valueForKey(t) : null
-    }
-    setval(t, e) {
-      return this.isSurge() || this.isShadowrocket() ? $persistentStore.write(t, e) : this.isQuanX() ? $prefs.setValueForKey(t, e) : null
-    }
-    get(t, r = () => {}) {
-      t.headers && (delete t.headers["Content-Type"], delete t.headers["Content-Length"]), this.isSurge() || this.isShadowrocket() ? (this.isSurge() && this.isNeedRewrite && (t.headers = t.headers || {}, Object.assign(t.headers, {
-        "X-Surge-Skip-Scripting": !1
-      })), $httpClient.get(t, (t, e, s) => {
-        !t && e && (e.body = s, e.statusCode = e.status), r(t, e, s)
-      })) : this.isQuanX() && (this.isNeedRewrite && (t.opts = t.opts || {}, Object.assign(t.opts, {
-        hints: !1
-      })), $task.fetch(t).then(t => {
-        var {
-          statusCode: t,
-          statusCode: e,
-          headers: s,
-          body: i
-        } = t;
-        r(null, {
-          status: t,
-          statusCode: e,
-          headers: s,
-          body: i
-        }, i)
-      }, t => r(t)))
-    }
-    post(t, r = () => {}) {
-      t.body && t.headers && !t.headers["Content-Type"] && (t.headers["Content-Type"] = "application/x-www-form-urlencoded"), t.headers && delete t.headers["Content-Length"], this.isSurge() || this.isShadowrocket() ? (this.isSurge() && this.isNeedRewrite && (t.headers = t.headers || {}, Object.assign(t.headers, {
-        "X-Surge-Skip-Scripting": !1
-      })), $httpClient.post(t, (t, e, s) => {
-        !t && e && (e.body = s, e.statusCode = e.status), r(t, e, s)
-      })) : this.isQuanX() && (t.method = "POST", this.isNeedRewrite && (t.opts = t.opts || {}, Object.assign(t.opts, {
-        hints: !1
-      })), $task.fetch(t).then(t => {
-        var {
-          statusCode: t,
-          statusCode: e,
-          headers: s,
-          body: i
-        } = t;
-        r(null, {
-          status: t,
-          statusCode: e,
-          headers: s,
-          body: i
-        }, i)
-      }, t => r(t)))
-    }
-    time(t, e = null) {
-      var s, e = e ? new Date(e) : new Date,
-        i = {
-          "M+": e.getMonth() + 1,
-          "d+": e.getDate(),
-          "H+": e.getHours(),
-          "m+": e.getMinutes(),
-          "s+": e.getSeconds(),
-          "q+": Math.floor((e.getMonth() + 3) / 3),
-          S: e.getMilliseconds()
-        };
-      for (s in /(y+)/.test(t) && (t = t.replace(RegExp.$1, (e.getFullYear() + "").substr(4 - RegExp.$1.length))), i) new RegExp("(" + s + ")").test(t) && (t = t.replace(RegExp.$1, 1 == RegExp.$1.length ? i[s] : ("00" + i[s]).substr(("" + i[s]).length)));
-      return t
-    }
-    msg(t = n, e = "", s = "", i) {
-      var r = t => {
-        return t && ("string" == typeof t ? this.isShadowrocket() ? t : this.isQuanX() ? {
-          "open-url": t
-        } : this.isSurge() ? {
-          url: t
-        } : void 0 : "object" == typeof t ? this.isShadowrocket() ? {
-          openUrl: t.openUrl || t.url || t["open-url"],
-          mediaUrl: t.mediaUrl || t["media-url"]
-        } : this.isQuanX() ? {
-          "open-url": t["open-url"] || t.url || t.openUrl,
-          "media-url": t["media-url"] || t.mediaUrl
-        } : this.isSurge() ? {
-          url: t.url || t.openUrl || t["open-url"]
-        } : void 0 : void 0)
-      };
-      this.isMute || (this.isSurge() || this.isShadowrocket() ? $notification.post(t, e, s, r(i)) : this.isQuanX() && $notify(t, e, s, r(i))), this.isMuteLog || ((r = [""]).push(t), e && r.push(e), s && r.push(s), console.log(r.join("\n")), this.logs = this.logs.concat(r))
-    }
-    log(...t) {
-      0 < t.length && (this.logs = [...this.logs, ...t]), console.log(t.join(this.logSeparator))
-    }
-    logErr(t, e) {
-      !this.isSurge() && !this.isQuanX() && !this.isShadowrocket() ? this.log("", `❗️${this.name}, 错误!`, t.stack) : this.log("", `❗️${this.name}, 错误!`, t)
-    }
-    wait(e) {
-      return new Promise(t => setTimeout(t, e))
-    }
-    done(t = {}) {
-      (new Date).getTime(), this.startTime;
-      (this.isSurge() || this.isQuanX() || this.isShadowrocket()) && $done(t)
-    }
-  }(n, t)
-}
