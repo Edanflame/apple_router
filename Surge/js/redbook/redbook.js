@@ -255,8 +255,8 @@ if (body) {
                 let cachedData = JSON.parse($.getdata($.RedBookVideoKey));
                 // 遍历本地缓存，找到与当前视频 ID 匹配的无水印链接进行替换
                 for (let item of cachedData) {
-                    if (item.video_id == obj.data.video_id) {
-                        obj.data = item; 
+                    if (item.note_id == obj.data.note_id) {
+                        obj.data = item;
                     }
                 }
                 body = JSON.stringify(obj);
@@ -265,7 +265,7 @@ if (body) {
             }
             break;
 
-        // 4. 评论区图片去水印
+        // 4. 评论区图片去水印（已失效）
         case /api\/sns\/v\d+\/note\/comment\/list/.test($request.url):
             try {
                 let obj = JSON.parse(body);
@@ -289,12 +289,12 @@ if (body) {
         case /api\/sns\/v\d+\/note\/redtube/.test($request.url):
             try {
                 let obj = JSON.parse(body);
-                for (let item of obj.data.items) {
+                for (let d of obj.data) {
                     // 解除保存限制
-                    if (item.f_ads) item.f_ads = 0;
-                    if (item.has_related_goods) item.has_related_goods = false;
+                    if (item.f_ads) d.f_ads = 0;
+                    if (item.has_related_goods) d.has_related_goods = false;
                     // 强制开启允许保存、禁用水印
-                    item.video_detail_info = {
+                    d.media_save_config = {
                         'disable_save': false,
                         'disable_watermark': true,
                         'disable_weibo_cover': true
@@ -311,19 +311,20 @@ if (body) {
             try {
                 let obj = JSON.parse(body);
                 let localVideos = JSON.parse($.getdata($.RedBookVideoKey) || "[]");
-                let items = obj.data.items || obj.items;
-                for (let item of items) {
+                let data = obj.items?.data || obj.data;
+                for (let d of data) {
                     // 解除下载限制、去除水印标志
-                    item.video_detail_info = {
+                    d.media_save_config = {
                         'disable_save': false,
                         'disable_watermark': true,
                         'disable_weibo_cover': true
                     };
+                    d.function_switch[0].enable = true;
                     // 核心：捕捉当前视频的真实下载地址并存入本地缓存，供点击保存按钮时调用
-                    if (item.video_info_v2?.media?.stream?.h265) {
+                    if (d.video_info_v2?.media?.stream?.h265) {
                         let videoData = {
-                            'video_id': item.id,
-                            'download_url': item.video_info_v2.media.stream.h265[0].master_url
+                            'note_id': d.id,
+                            'download_url': d.video_info_v2.media.stream.h265[0].master_url
                         };
                         localVideos.push(videoData);
                     }
@@ -342,10 +343,10 @@ if (body) {
             try {
                 let obj = JSON.parse(body);
                 let localPhotos = JSON.parse($.getdata($.RedBookPhotoKey) || "[]");
-                let items = obj.data.items || obj.items;
-                for (let item of items) {
-                    for (let note of item.note_list) {
-                        note.video_detail_info = {
+                let data = obj.items?.data || obj.data;
+                for (let d of data) {
+                    for (let note of d.note_list) {
+                        note.media_save_config = {
                             'disable_save': false,
                             'disable_watermark': true,
                             'disable_weibo_cover': true
