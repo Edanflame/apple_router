@@ -27,7 +27,7 @@ if (body) {
         case /^https?:\/\/app\.bilibili\.com\/x\/resource\/show\/skin\?/.test($request.url):
             try {
                 let obj = JSON.parse(body);
-                delete obj.data?.common_equip;
+                delete obj.data.common_equip;
                 body = JSON.stringify(obj);
             } catch (e) {
                 console.log("bilibili skin error:" + e);
